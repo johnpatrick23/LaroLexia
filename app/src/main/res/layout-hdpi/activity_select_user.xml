@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_bg"
+    tools:context=".SelectUserActivity">
+
+
+    <ImageButton
+        android:id="@+id/mImageButtonSelectedUsername"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="@dimen/button_width_l"
+        android:layout_height="@dimen/button_height_l"
+        android:layout_margin="@dimen/padding_1"
+        android:padding="@dimen/padding_0"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_playicon" />
+
+    <ImageButton
+        android:id="@+id/mImageButtonAddUsername"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="@dimen/button_width_l"
+        android:layout_height="@dimen/button_height_l"
+        android:layout_margin="@dimen/padding_1"
+        android:padding="@dimen/padding_0"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/mImageButtonSelectedUsername"
+        app:srcCompat="@drawable/ic_97" />
+
+    <ImageButton
+        android:id="@+id/mImageButtonDeleteUsername"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="@dimen/button_width_l"
+        android:layout_height="@dimen/button_height_l"
+        android:layout_margin="@dimen/padding_1"
+        android:padding="@dimen/padding_0"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mImageButtonSelectedUsername"
+        app:srcCompat="@drawable/ic_98" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_3"
+        android:background="@drawable/bg_stars"
+        android:fontFamily="@font/verdana_bold"
+        android:padding="@dimen/padding_3"
+        android:text="Achievements"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_xxl"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/mListViewUsername"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/padding_3"
+        android:background="@drawable/bg_stars"
+        android:padding="@dimen/padding_3"
+        app:layout_constraintBottom_toTopOf="@+id/mImageButtonSelectedUsername"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+</android.support.constraint.ConstraintLayout>

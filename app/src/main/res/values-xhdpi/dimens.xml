@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_width_s">24dp</dimen>
+    <dimen name="button_width_m">48dp</dimen>
+    <dimen name="button_width_l">72dp</dimen>
+    <dimen name="button_width_xl">96dp</dimen>
+    <dimen name="button_width_xxl">120dp</dimen>
+    <dimen name="button_width_xxxl">144dp</dimen>
+
+    <dimen name="button_height_s">24dp</dimen>
+    <dimen name="button_height_m">48dp</dimen>
+    <dimen name="button_height_l">72dp</dimen>
+    <dimen name="button_height_xl">96dp</dimen>
+    <dimen name="button_height_xxl">120dp</dimen>
+    <dimen name="button_height_xxxl">144dp</dimen>
+
+    <dimen name="font_s">14sp</dimen>
+    <dimen name="font_m">18sp</dimen>
+    <dimen name="font_l">24sp</dimen>
+    <dimen name="font_xl">30sp</dimen>
+    <dimen name="font_xxl">36sp</dimen>
+
+
+    <dimen name="title_font">72sp</dimen>
+
+    <dimen name="padding_0">0dp</dimen>
+    <dimen name="padding_1">4dp</dimen>
+    <dimen name="padding_2">8dp</dimen>
+    <dimen name="padding_3">16dp</dimen>
+    <dimen name="padding_4">32dp</dimen>
+
+</resources>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mConstraintLayoutMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_bg">
+
+    <ImageButton
+        android:id="@+id/mImageButtonMainPlay"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="@dimen/button_width_l"
+        android:layout_height="@dimen/button_height_l"
+        android:layout_margin="@dimen/padding_1"
+        android:padding="@dimen/padding_0"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_playicon" />
+
+    <ImageButton
+        android:id="@+id/mImageButtonMainAchievements"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="@dimen/button_width_l"
+        android:layout_height="@dimen/button_height_l"
+        android:layout_margin="@dimen/padding_1"
+        android:padding="@dimen/padding_0"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/mImageButtonMainPlay"
+        app:srcCompat="@drawable/ic_achievementicon" />
+
+    <ImageButton
+        android:id="@+id/mImageButtonMainSettings"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="@dimen/button_width_l"
+        android:layout_height="@dimen/button_height_l"
+        android:layout_margin="@dimen/padding_1"
+        android:padding="@dimen/padding_0"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mImageButtonMainPlay"
+        app:srcCompat="@drawable/ic_settingsicon" />
+
+    <TextView
+        android:id="@+id/mTextViewMainUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/verdana_bold"
+        android:gravity="center"
+        android:hint="Pangalan ng manlalaro"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/player_name_font"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/mImageButtonMainPlay"
+        app:layout_constraintEnd_toStartOf="@+id/mImageButtonMainClose"
+        app:layout_constraintStart_toEndOf="@+id/mImageButtonMainAboutGame"
+        app:layout_constraintTop_toBottomOf="@+id/mTextViewMainGameTitle" />
+
+    <LinearLayout
+        android:id="@+id/mLinearLayoutMainStarsContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_1"
+        android:layout_weight="1"
+        android:background="@drawable/bg_stars"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_2"
+        app:layout_constraintEnd_toStartOf="@+id/mImageButtonMainClose"
+        app:layout_constraintStart_toEndOf="@+id/mImageButtonMainAboutGame"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/mImageViewMainStar"
+            android:layout_width="@dimen/button_width_m"
+            android:layout_height="@dimen/button_height_m"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_star" />
+
+        <TextView
+            android:id="@+id/mTextViewMainUserStars"
+            android:layout_width="@dimen/button_width_l"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="99"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/player_name_font"
+            android:textStyle="bold"
+            tools:ignore="RtlCompat" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/mImageButtonMainAboutGame"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="@dimen/button_width_l"
+        android:layout_height="@dimen/button_height_l"
+        android:layout_margin="@dimen/padding_1"
+        android:padding="@dimen/padding_0"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_helpicon" />
+
+    <TextView
+        android:id="@+id/mTextViewMainGameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_2"
+        android:background="@drawable/bg_stars"
+        android:fontFamily="@font/verdana_bold"
+        android:gravity="center"
+        android:padding="@dimen/padding_3"
+        android:text="LaroLexia"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/title_font"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mLinearLayoutMainStarsContainer" />
+
+    <ImageButton
+        android:id="@+id/mImageButtonMainClose"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="@dimen/button_width_l"
+        android:layout_height="@dimen/button_height_l"
+        android:layout_margin="@dimen/padding_1"
+        android:padding="@dimen/padding_0"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_cancelicon" />
+
+</android.support.constraint.ConstraintLayout>
