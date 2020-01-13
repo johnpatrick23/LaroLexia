@@ -29,4 +29,9 @@
     <dimen name="padding_3">16dp</dimen>
     <dimen name="padding_4">32dp</dimen>
 
+    <dimen name="bamboo_height">360dp</dimen>
+    <dimen name="bamboo_width">55dp</dimen>
+    <dimen name="tao_height">290dp</dimen>
+    <dimen name="tao_width">159dp</dimen>
+
 </resources>

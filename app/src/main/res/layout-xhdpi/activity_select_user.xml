@@ -53,7 +53,7 @@
         android:background="@drawable/bg_stars"
         android:fontFamily="@font/verdana_bold"
         android:padding="@dimen/padding_3"
-        android:text="Achievements"
+        android:text="Piliin ang iyong pangalan"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="@dimen/font_xxl"

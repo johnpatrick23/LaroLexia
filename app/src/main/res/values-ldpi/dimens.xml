@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <dimen name="button_width_s">24dp</dimen>
     <dimen name="button_width_m">36dp</dimen>
     <dimen name="button_width_l">48dp</dimen>
-    <dimen name="button_width_xl">96dp</dimen>
-    <dimen name="button_width_xxl">120dp</dimen>
-    <dimen name="button_width_xxxl">144dp</dimen>
+    <dimen name="button_width_xl">62dp</dimen>
+    <dimen name="button_width_xxl">48dp</dimen>
+    <dimen name="button_width_xxxl">48dp</dimen>
 
     <dimen name="button_height_s">24dp</dimen>
     <dimen name="button_height_m">36dp</dimen>
     <dimen name="button_height_l">48dp</dimen>
-    <dimen name="button_height_xl">96dp</dimen>
-    <dimen name="button_height_xxl">120dp</dimen>
-    <dimen name="button_height_xxxl">144dp</dimen>
+    <dimen name="button_height_xl">62dp</dimen>
+    <dimen name="button_height_xxl">48dp</dimen>
+    <dimen name="button_height_xxxl">48dp</dimen>
 
     <dimen name="font_s">0sp</dimen>
     <dimen name="font_m">4sp</dimen>

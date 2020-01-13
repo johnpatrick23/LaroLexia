@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_bg"
+    tools:context=".BasagPalayokActivity">
+
+    <TextView
+        android:id="@+id/mTextViewBasagPalayokQuestion"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/padding_2"
+        android:background="@drawable/bg_stars"
+        android:fontFamily="@font/verdana_bold"
+        android:gravity="center"
+        android:padding="@dimen/padding_2"
+        android:text="Piliin ang nawawalang letra _mpanada"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_s"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:ignore="RtlCompat" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mTextViewBasagPalayokInstruction">
+
+        <Button
+            android:id="@+id/mButtonBasagPalayokChoice1"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_xl"
+            android:layout_margin="@dimen/padding_2"
+            android:layout_weight="1"
+            android:background="@drawable/ic_palayok"
+            android:fontFamily="@font/verdana_bold"
+            android:scaleType="fitCenter"
+            android:text="M"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/font_l"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/mButtonBasagPalayokChoice2"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_xl"
+            android:layout_margin="@dimen/padding_2"
+            android:layout_weight="1"
+            android:background="@drawable/ic_palayok"
+            android:fontFamily="@font/verdana_bold"
+            android:scaleType="fitCenter"
+            android:text="A"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/font_l"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/mButtonBasagPalayokChoice3"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_xl"
+            android:layout_margin="@dimen/padding_2"
+            android:layout_weight="1"
+            android:background="@drawable/ic_palayok"
+            android:fontFamily="@font/verdana_bold"
+            android:scaleType="fitCenter"
+            android:text="R"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/font_l"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/mButtonBasagPalayokChoice4"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_xl"
+            android:layout_margin="@dimen/padding_2"
+            android:layout_weight="1"
+            android:background="@drawable/ic_palayok"
+            android:fontFamily="@font/verdana_bold"
+            android:scaleType="fitCenter"
+            android:text="Y"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/font_l"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/mButtonBasagPalayokChoice5"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_xl"
+            android:layout_margin="@dimen/padding_2"
+            android:layout_weight="1"
+            android:background="@drawable/ic_palayok"
+            android:fontFamily="@font/verdana_bold"
+            android:scaleType="fitCenter"
+            android:text="Y"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/font_l"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/mImageButtonBasagPalayokPause"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="@dimen/button_width_m"
+        android:layout_height="@dimen/button_height_m"
+        android:layout_marginStart="@dimen/padding_2"
+        android:layout_marginTop="@dimen/padding_2"
+        android:padding="@dimen/padding_0"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_pauseicon" />
+
+    <TextView
+        android:id="@+id/mTextViewBasagPalayokInstruction"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_3"
+        android:layout_marginTop="@dimen/padding_2"
+        android:layout_marginEnd="@dimen/padding_2"
+        android:background="@drawable/bg_stars"
+        android:fontFamily="@font/verdana_bold"
+        android:gravity="center"
+        android:padding="@dimen/padding_2"
+        android:text="Basagin ang palayok."
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_s"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mTextViewBasagpalayokScore"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlCompat" />
+
+    <TextView
+        android:id="@+id/mTextViewBasagpalayokScoreText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_2"
+        android:layout_marginTop="@dimen/padding_2"
+        android:background="@drawable/bg_stars"
+        android:fontFamily="@font/verdana_bold"
+        android:gravity="center"
+        android:padding="@dimen/padding_2"
+        android:text="Score: "
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_s"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/mImageButtonBasagPalayokPause"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlCompat" />
+
+    <TextView
+        android:id="@+id/mTextViewBasagpalayokScore"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_2"
+        android:background="@drawable/bg_stars"
+        android:fontFamily="@font/verdana_bold"
+        android:gravity="center"
+        android:padding="@dimen/padding_2"
+        android:text="99"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_s"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/mTextViewBasagpalayokScoreText"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlCompat" />
+</android.support.constraint.ConstraintLayout>

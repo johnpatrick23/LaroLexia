@@ -8,6 +8,15 @@ public class UsersModel implements Serializable {
     private String a_character;
     private String a_last_used;
     private String a_stars;
+    private String a_new_user;
+
+    public String getA_new_user() {
+        return a_new_user;
+    }
+
+    public void setA_new_user(String a_new_user) {
+        this.a_new_user = a_new_user;
+    }
 
     public String getA_stars() {
         return a_stars;

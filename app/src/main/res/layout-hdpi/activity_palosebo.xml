@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_bg">
+
+    <ImageView
+        android:id="@+id/mImageViewPaloseboBambooTop"
+        android:layout_width="@dimen/bamboo_width"
+        android:layout_height="@dimen/bamboo_height"
+        app:layout_constraintBottom_toTopOf="@+id/mImageViewPaloseboBambooBottom"
+        app:layout_constraintEnd_toEndOf="@+id/mImageViewPaloseboBambooBottom"
+        app:layout_constraintStart_toStartOf="@+id/mImageViewPaloseboBambooBottom"
+        app:srcCompat="@drawable/ic_bamboo" />
+
+    <ImageView
+        android:id="@+id/mImageViewPaloseboBambooBottom"
+        android:layout_width="@dimen/bamboo_width"
+        android:layout_height="@dimen/bamboo_height"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mTextViewPaloseboQuestion"
+        app:srcCompat="@drawable/ic_bamboo" />
+
+    <ImageView
+        android:id="@+id/mImageViewPaloseboTao"
+        android:layout_width="@dimen/tao_width"
+        android:layout_height="@dimen/tao_height"
+        android:layout_marginEnd="@dimen/padding_2"
+        app:layout_constraintBottom_toTopOf="@+id/mTextViewPaloseboInstruction"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+        app:srcCompat="@drawable/ic_tao" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_2"
+        android:padding="@dimen/padding_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/mTextViewPaloseboQuestion"
+        app:layout_constraintStart_toStartOf="@+id/mTextViewPaloseboQuestion">
+
+        <ImageButton
+            android:id="@+id/mButtonPaloseboChoice3"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/button_width_xl"
+            android:layout_height="@dimen/button_height_xl"
+            android:background="@drawable/bg_stars"
+            android:padding="@dimen/padding_1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ibon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/mButtonPaloseboChoice1"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/button_width_xl"
+            android:layout_height="@dimen/button_height_xl"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_stars"
+            android:padding="@dimen/padding_1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/obispo"
+            app:layout_constraintBottom_toTopOf="@+id/mButtonPaloseboChoice3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/mButtonPaloseboChoice4"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/button_width_xl"
+            android:layout_height="@dimen/button_height_xl"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_stars"
+            android:padding="@dimen/padding_1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/mata"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/mButtonPaloseboChoice3" />
+
+        <ImageButton
+            android:id="@+id/mButtonPaloseboChoice2"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/button_width_xl"
+            android:layout_height="@dimen/button_height_xl"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_stars"
+            android:padding="@dimen/padding_1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/saging"
+            app:layout_constraintBottom_toTopOf="@+id/mButtonPaloseboChoice4"
+            app:layout_constraintStart_toEndOf="@+id/mButtonPaloseboChoice1"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/mTextViewPaloseboQuestion"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/padding_2"
+        android:background="@drawable/bg_stars"
+        android:fontFamily="@font/verdana_bold"
+        android:gravity="center"
+        android:paddingLeft="@dimen/padding_2"
+        android:paddingRight="@dimen/padding_2"
+        android:text="Piliin ang bagay na naguumpisa sa letrang A"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_l"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toStartOf="@+id/mTextViewPaloseboInstruction"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mImageButtonPaloseboPause" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_1"
+        android:background="@drawable/bg_stars"
+        android:fontFamily="@font/verdana_bold"
+        android:padding="@dimen/padding_1"
+        android:text="SCORE"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_l"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/mTextViewPaloseboScore"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_stars"
+        android:fontFamily="@font/verdana_bold"
+        android:padding="@dimen/padding_1"
+        android:text="hdpi"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_l"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textView10"
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <ImageButton
+        android:id="@+id/mImageButtonPaloseboPause"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="@dimen/button_width_m"
+        android:layout_height="@dimen/button_height_m"
+        android:padding="@dimen/padding_0"
+        android:scaleType="fitCenter"
+        android:layout_margin="@dimen/padding_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_pauseicon" />
+
+    <TextView
+        android:id="@+id/mTextViewPaloseboInstruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_stars"
+        android:fontFamily="@font/verdana"
+        android:padding="@dimen/padding_2"
+        android:text="Tulungan makaakyat si Juan."
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_l"
+        android:textStyle="bold"
+        android:translationZ="2dp"
+        android:layout_margin="@dimen/padding_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</android.support.constraint.ConstraintLayout>

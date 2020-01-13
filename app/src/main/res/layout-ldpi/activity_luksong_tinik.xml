@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_bg"
+    tools:context=".LuksongTinikActivity">
+
+    <TextView
+        android:id="@+id/mTextViewScoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_stars"
+        android:fontFamily="@font/verdana_bold"
+        android:padding="@dimen/padding_3"
+        android:text="Score"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_s"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/mTextViewQuestion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mTextViewQuestion"
+        app:layout_constraintTop_toTopOf="@+id/mTextViewQuestion" />
+
+    <TextView
+        android:id="@+id/mTextViewScore"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_stars"
+        android:fontFamily="@font/verdana_bold"
+        android:padding="@dimen/padding_3"
+        android:text="99"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_s"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/mTextViewScoreText"
+        app:layout_constraintStart_toStartOf="@+id/mTextViewScoreText"
+        app:layout_constraintTop_toBottomOf="@+id/mTextViewScoreText" />
+
+    <ImageButton
+        android:id="@+id/mImageButtonPause"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="@dimen/button_width_m"
+        android:layout_height="@dimen/button_height_m"
+        android:layout_marginStart="@dimen/padding_2"
+        android:layout_marginTop="@dimen/padding_2"
+        android:padding="@dimen/padding_0"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_pauseicon" />
+
+    <TextView
+        android:id="@+id/mTextViewQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_stars"
+        android:fontFamily="@font/verdana_bold"
+        android:padding="@dimen/padding_3"
+        android:text="Ano ang larawang ito?"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_s"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/mEditTextAnswer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:fontFamily="@font/verdana"
+        android:hint="Sagot"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_s"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/mTextViewQuestion"
+        app:layout_constraintStart_toStartOf="@+id/mTextViewQuestion"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+    <ImageButton
+        android:id="@+id/mImageButtonSubmitAnswer"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="@dimen/button_width_m"
+        android:layout_height="@dimen/button_height_m"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/mEditTextAnswer"
+        app:layout_constraintStart_toEndOf="@+id/mEditTextAnswer"
+        app:layout_constraintTop_toTopOf="@+id/mEditTextAnswer"
+        app:srcCompat="@drawable/ic_okicon" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_stars"
+        android:padding="@dimen/padding_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/mImageViewObject"
+            android:layout_width="@dimen/button_width_xxl"
+            android:layout_height="@dimen/button_height_xxl"
+            app:srcCompat="@drawable/mansanas" />
+    </FrameLayout>
+
+</android.support.constraint.ConstraintLayout>

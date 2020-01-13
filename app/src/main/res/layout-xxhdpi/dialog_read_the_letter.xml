@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/ic_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/mButtonBumalik"
+            app:layout_constraintEnd_toStartOf="@+id/mButtonMagpatuloy"
+            app:layout_constraintStart_toEndOf="@+id/mButtonBumalik"
+            app:layout_constraintTop_toBottomOf="@+id/mTextViewInstructionToBeRead">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/padding_2"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_stars"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_2">
+
+                    <ImageView
+                        android:id="@+id/mImageViewExample1"
+                        android:layout_width="@dimen/button_width_xl"
+                        android:layout_height="@dimen/button_height_xl"
+                        android:layout_margin="@dimen/padding_1"
+                        android:layout_weight="1"
+                        android:src="@drawable/tuka"
+                        tools:ignore="NestedWeights" />
+
+                    <TextView
+                        android:id="@+id/mTextViewExample1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/verdana_bold"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="TextView"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_l"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_stars"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_2">
+
+                    <ImageView
+                        android:id="@+id/mImageViewExample2"
+                        android:layout_width="@dimen/button_width_xl"
+                        android:layout_height="@dimen/button_height_xl"
+                        android:layout_margin="@dimen/padding_1"
+                        android:layout_weight="1"
+                        android:src="@drawable/tula"
+                        tools:ignore="NestedWeights" />
+
+                    <TextView
+                        android:id="@+id/mTextViewExample2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/verdana_bold"
+                        android:singleLine="true"
+                        android:text="TextView"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_l"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_stars"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_2">
+
+                    <ImageView
+                        android:id="@+id/mImageViewExample3"
+                        android:layout_width="@dimen/button_width_xl"
+                        android:layout_height="@dimen/button_height_xl"
+                        android:layout_margin="@dimen/padding_1"
+                        android:layout_weight="1"
+                        android:src="@drawable/masanas"
+                        tools:ignore="NestedWeights" />
+
+                    <TextView
+                        android:id="@+id/mTextViewExample3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/verdana_bold"
+                        android:singleLine="true"
+                        android:text="TextView"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_l"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/mTextViewInstructionToBeRead"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_2"
+            android:layout_marginTop="@dimen/padding_3"
+            android:background="@drawable/bg_stars"
+            android:fontFamily="@font/verdana_bold"
+            android:padding="@dimen/padding_2"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_xl"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/mButtonBumalik"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/button_width_l"
+            android:layout_height="@dimen/button_height_l"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/ic_cancelicon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/mButtonPakinggan"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pakinggan"
+            android:fontFamily="@font/verdana_bold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_l"
+            android:background="@drawable/bg_stars"
+            android:paddingLeft="@dimen/padding_2"
+            android:paddingRight="@dimen/padding_2"
+            app:layout_constraintBottom_toBottomOf="@+id/mButtonMagpatuloy"
+            app:layout_constraintEnd_toStartOf="@+id/mButtonMagpatuloy"
+            app:layout_constraintStart_toEndOf="@+id/mButtonBumalik"
+            app:layout_constraintTop_toTopOf="@+id/mButtonBumalik" />
+
+        <Button
+            android:id="@+id/mButtonMagpatuloy"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/button_width_l"
+            android:layout_height="@dimen/button_width_l"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/ic_playicon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

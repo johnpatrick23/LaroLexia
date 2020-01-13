@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_bg">
+
+    <ImageButton
+        android:id="@+id/mImageButtonJuan"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="@dimen/button_width_xxxl"
+        android:layout_height="@dimen/button_height_xxxl"
+        android:background="@drawable/bg_stars"
+        android:padding="@dimen/padding_2"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/mEditTextDialogUsername"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_idle_boy" />
+
+    <ImageButton
+        android:id="@+id/mImageButtonJuana"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="@dimen/button_width_xxxl"
+        android:layout_height="@dimen/button_height_xxxl"
+        android:background="@drawable/bg_stars"
+        android:padding="@dimen/padding_2"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mEditTextDialogUsername"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_idle_girl" />
+
+    <Button
+        android:id="@+id/mButtonDialogAddUsername"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_stars"
+        android:fontFamily="@font/verdana_bold"
+        android:padding="@dimen/padding_2"
+        android:text="Idagdag"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_l"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/mImageButtonJuana"
+        app:layout_constraintStart_toEndOf="@+id/mImageButtonJuan"
+        app:layout_constraintTop_toBottomOf="@+id/mEditTextDialogUsername" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_stars"
+        android:fontFamily="@font/verdana_bold"
+        android:padding="@dimen/padding_2"
+        android:text="Pangalan"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_xl"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/mEditTextDialogUsername"
+        app:layout_constraintEnd_toStartOf="@+id/mImageButtonJuana"
+        app:layout_constraintStart_toEndOf="@+id/mImageButtonJuan"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/mEditTextDialogUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_stars"
+        android:ems="10"
+        android:fontFamily="@font/verdana_bold"
+        android:hint="Pangalan"
+        android:inputType="textPersonName"
+        android:padding="@dimen/padding_2"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_l"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

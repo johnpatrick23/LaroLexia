@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:installLocation="preferExternal"
     package="com.oneclique.larolexia">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -23,7 +24,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".SelectUserActivity" android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".LuksongTinikActivity" android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".BasagPalayokActivity" android:screenOrientation="sensorLandscape" />
+        <activity android:name=".PaloseboActivity" android:screenOrientation="sensorLandscape" />
+        <activity android:name=".SalitaInGameChoicesActivity" android:screenOrientation="sensorLandscape" />
+        <activity android:name=".TitikInGameChoicesActivity" android:screenOrientation="sensorLandscape" />
+        <activity android:name=".LevelsActivity" android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".GameModeActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".SelectUserActivity"
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".AchievementsActivity"
             android:screenOrientation="sensorLandscape" />

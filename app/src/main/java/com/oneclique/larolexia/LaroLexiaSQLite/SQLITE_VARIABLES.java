@@ -10,6 +10,7 @@ public final class SQLITE_VARIABLES {
         public final static String DB_COL_CHARACTER = "a_character";
         public final static String DB_COL_LAST_USED = "a_last_used";
         public final static String DB_COL_STARS = "a_stars";
+        public final static String DB_COL_NEW_USER = "a_new_user";
     }
 
     public final static class Table_Questions{
@@ -28,6 +29,14 @@ public final class SQLITE_VARIABLES {
     public final static class Table_Letters{
         public final static String DB_TABLE_NAME = "tbl_letters";
         public final static String DB_COL_LETTER = "a_letter";
+        public final static String DB_COL_INSTRUCTION = "a_instruction";
+        public final static String DB_COL_EXAMPLES_IMAGES = "a_examples_images";
+        public final static String DB_COL_EXAMPLES_TEXT = "a_examples_text";
+    }
+
+    public final static class Table_Salita{
+        public final static String DB_TABLE_NAME = "tbl_salita";
+        public final static String DB_COL_SALITA = "a_salita";
         public final static String DB_COL_INSTRUCTION = "a_instruction";
         public final static String DB_COL_EXAMPLES_IMAGES = "a_examples_images";
         public final static String DB_COL_EXAMPLES_TEXT = "a_examples_text";

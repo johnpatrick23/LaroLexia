@@ -3,21 +3,21 @@
     <dimen name="button_width_s">24dp</dimen>
     <dimen name="button_width_m">36dp</dimen>
     <dimen name="button_width_l">48dp</dimen>
-    <dimen name="button_width_xl">96dp</dimen>
-    <dimen name="button_width_xxl">120dp</dimen>
-    <dimen name="button_width_xxxl">144dp</dimen>
+    <dimen name="button_width_xl">72dp</dimen>
+    <dimen name="button_width_xxl">96dp</dimen>
+    <dimen name="button_width_xxxl">96dp</dimen>
 
     <dimen name="button_height_s">24dp</dimen>
     <dimen name="button_height_m">36dp</dimen>
     <dimen name="button_height_l">48dp</dimen>
-    <dimen name="button_height_xl">96dp</dimen>
-    <dimen name="button_height_xxl">120dp</dimen>
-    <dimen name="button_height_xxxl">144dp</dimen>
+    <dimen name="button_height_xl">72dp</dimen>
+    <dimen name="button_height_xxl">96dp</dimen>
+    <dimen name="button_height_xxxl">96dp</dimen>
 
     <dimen name="font_s">14sp</dimen>
     <dimen name="font_m">18sp</dimen>
-    <dimen name="font_l">24sp</dimen>
-    <dimen name="font_xl">30sp</dimen>
+    <dimen name="font_l">18sp</dimen>
+    <dimen name="font_xl">24sp</dimen>
     <dimen name="font_xxl">36sp</dimen>
 
 

@@ -3,16 +3,16 @@
     <dimen name="button_width_s">24dp</dimen>
     <dimen name="button_width_m">36dp</dimen>
     <dimen name="button_width_l">48dp</dimen>
-    <dimen name="button_width_xl">96dp</dimen>
-    <dimen name="button_width_xxl">120dp</dimen>
-    <dimen name="button_width_xxxl">144dp</dimen>
+    <dimen name="button_width_xl">72dp</dimen>
+    <dimen name="button_width_xxl">96dp</dimen>
+    <dimen name="button_width_xxxl">120dp</dimen>
 
     <dimen name="button_height_s">24dp</dimen>
     <dimen name="button_height_m">36dp</dimen>
     <dimen name="button_height_l">48dp</dimen>
-    <dimen name="button_height_xl">96dp</dimen>
-    <dimen name="button_height_xxl">120dp</dimen>
-    <dimen name="button_height_xxxl">144dp</dimen>
+    <dimen name="button_height_xl">72dp</dimen>
+    <dimen name="button_height_xxl">96dp</dimen>
+    <dimen name="button_height_xxxl">120dp</dimen>
 
     <dimen name="font_s">8sp</dimen>
     <dimen name="font_m">12sp</dimen>
@@ -29,5 +29,10 @@
     <dimen name="padding_2">4dp</dimen>
     <dimen name="padding_3">8dp</dimen>
     <dimen name="padding_4">16dp</dimen>
+
+    <dimen name="bamboo_height">320dp</dimen>
+    <dimen name="bamboo_width">55dp</dimen>
+    <dimen name="tao_height">290dp</dimen>
+    <dimen name="tao_width">149dp</dimen>
 
 </resources>
