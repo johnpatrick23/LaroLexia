@@ -1,7 +1,9 @@
 package com.oneclique.larolexia;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.media.AudioManager;
@@ -9,6 +11,8 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -44,13 +48,34 @@ public class MainActivity extends AppCompatActivityHelper {
 
     private Intent intent;
 
+    /*@Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 1110: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
+    }*/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fullScreen();
         setContentView(R.layout.activity_main);
         requestPermission(MainActivity.this);
-
         mImageButtonMainAboutGame = findViewById(R.id.mImageButtonMainAboutGame);
         mImageButtonMainClose = findViewById(R.id.mImageButtonMainClose);
 
@@ -85,12 +110,16 @@ public class MainActivity extends AppCompatActivityHelper {
             if(cursor.getCount() != 0){
                 mImageButtonMainPlay.setEnabled(true);
                 while (cursor.moveToNext()){
-                    usersModel.setA_id(cursor.getString(cursor.getColumnIndex(Table_Users.DB_COL_ID)));
-                    usersModel.setA_username(cursor.getString(cursor.getColumnIndex(Table_Users.DB_COL_USERNAME)));
-                    usersModel.setA_stars(cursor.getString(cursor.getColumnIndex(Table_Users.DB_COL_STARS)));
-                    usersModel.setA_character(cursor.getString(cursor.getColumnIndex(Table_Users.DB_COL_CHARACTER)));
-                    usersModel.setA_last_used(cursor.getString(cursor.getColumnIndex(Table_Users.DB_COL_LAST_USED)));
-                    usersModel.setA_new_user(cursor.getString(cursor.getColumnIndex(Table_Users.DB_COL_NEW_USER)));
+                    try{
+                        usersModel.setA_id(cursor.getString(cursor.getColumnIndex(Table_Users.DB_COL_ID)));
+                        usersModel.setA_username(cursor.getString(cursor.getColumnIndex(Table_Users.DB_COL_USERNAME)));
+                        usersModel.setA_stars(cursor.getString(cursor.getColumnIndex(Table_Users.DB_COL_STARS)));
+                        usersModel.setA_character(cursor.getString(cursor.getColumnIndex(Table_Users.DB_COL_CHARACTER)));
+                        usersModel.setA_last_used(cursor.getString(cursor.getColumnIndex(Table_Users.DB_COL_LAST_USED)));
+                        usersModel.setA_new_user(cursor.getString(cursor.getColumnIndex(Table_Users.DB_COL_NEW_USER)));
+                    }catch (Exception e){
+                        requestPermission(MainActivity.this);
+                    }
                 }
                 UserModelLog(usersModel);
                 mTextViewMainUsername.setText(usersModel.getA_username());
@@ -146,7 +175,6 @@ public class MainActivity extends AppCompatActivityHelper {
                 startActivityForResult(intent, REQUEST_SELECTED_USERNAME);
             }
         });
-
     }
 
     @Override

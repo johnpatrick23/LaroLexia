@@ -38,6 +38,7 @@ public class SalitaInGameChoicesActivity extends AppCompatActivityHelper {
     private WordsModel wordsModel;
 
     private PlayerStatisticModel playerStatisticModel;
+    private Button mButtonSalitaSummativeTest;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +48,7 @@ public class SalitaInGameChoicesActivity extends AppCompatActivityHelper {
         playerStatisticModel = (PlayerStatisticModel) Objects.requireNonNull(intent.getExtras())
                 .getSerializable(PLAYER_STATISTICS);
         mGridViewPantig = findViewById(R.id.mGridViewPantig);
+        mButtonSalitaSummativeTest = findViewById(R.id.mButtonSalitaSummativeTest);
 
         List<String> pantigList = new ArrayList<>();
         wordsModel = new WordsModel();
@@ -55,7 +57,34 @@ public class SalitaInGameChoicesActivity extends AppCompatActivityHelper {
 
         Cursor lettersCursor = laroLexiaSQLite.executeReader(
                 "SELECT * FROM " + Table_Salita.DB_TABLE_NAME + " order by " + Table_Salita.DB_COL_SALITA + "; ");
+        mButtonSalitaSummativeTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = null;
+                switch (playerStatisticModel.getLevel()){
+                    case "1":{
+                        intent = new Intent(SalitaInGameChoicesActivity.this, PaloseboActivity.class);
+                        break;
+                    }
+                    case "2":{
+                        intent = new Intent(SalitaInGameChoicesActivity.this, BasagPalayokActivity.class);
+                        break;
+                    }
+                    case "3":{
+                        intent = new Intent(SalitaInGameChoicesActivity.this, LuksongTinikActivity.class);
+                        break;
+                    }
+                }
+                if (intent != null) {
+                    intent.putExtra(SUMMATIVE_TEST, SUMMATIVE_TEST_PANTIG);
+                    playerStatisticModel.setLetter(SUMMATIVE_TEST_PANTIG);
+                    intent.putExtra(PLAYER_STATISTICS, playerStatisticModel);
+                    PlayerStatisticLog(playerStatisticModel);
+                    startActivity(intent);
+                }
 
+            }
+        });
         if(lettersCursor.getCount() != 0){
             //Toast.makeText(TitikInGameChoicesActivity.this, String.valueOf(lettersCursor.getCount()), Toast.LENGTH_LONG).show();
             while(lettersCursor.moveToNext()){

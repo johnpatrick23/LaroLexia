@@ -41,6 +41,8 @@ public class TitikInGameChoicesActivity extends AppCompatActivityHelper {
 
     private PlayerStatisticModel playerStatisticModel;
 
+    private Button mButtonTitikSummativeTest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,7 @@ public class TitikInGameChoicesActivity extends AppCompatActivityHelper {
         playerStatisticModel = (PlayerStatisticModel) Objects.requireNonNull(intent.getExtras())
                 .getSerializable(PLAYER_STATISTICS);
 
+        mButtonTitikSummativeTest = findViewById(R.id.mButtonTitikSummativeTest);
         mGridViewLetters = findViewById(R.id.mGridViewLetters);
 
         List<String> letterList = new ArrayList<>();
@@ -60,6 +63,35 @@ public class TitikInGameChoicesActivity extends AppCompatActivityHelper {
 
         Cursor lettersCursor = laroLexiaSQLite.executeReader(
                 "SELECT * FROM " + SQLITE_VARIABLES.Table_Letters.DB_TABLE_NAME + ";");
+
+        mButtonTitikSummativeTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = null;
+                switch (playerStatisticModel.getLevel()){
+                    case "1":{
+                        intent = new Intent(TitikInGameChoicesActivity.this, PaloseboActivity.class);
+                        break;
+                    }
+                    case "2":{
+                        intent = new Intent(TitikInGameChoicesActivity.this, BasagPalayokActivity.class);
+                        break;
+                    }
+                    case "3":{
+                        intent = new Intent(TitikInGameChoicesActivity.this, LuksongTinikActivity.class);
+                        break;
+                    }
+                }
+                if (intent != null) {
+                    intent.putExtra(SUMMATIVE_TEST, SUMMATIVE_TEST_TITIK);
+                    playerStatisticModel.setLetter(SUMMATIVE_TEST_TITIK);
+                    intent.putExtra(PLAYER_STATISTICS, playerStatisticModel);
+                    PlayerStatisticLog(playerStatisticModel);
+                    startActivity(intent);
+                }
+
+            }
+        });
 
         if(lettersCursor.getCount() != 0){
             //Toast.makeText(TitikInGameChoicesActivity.this, String.valueOf(lettersCursor.getCount()), Toast.LENGTH_LONG).show();
@@ -93,7 +125,8 @@ public class TitikInGameChoicesActivity extends AppCompatActivityHelper {
                             readLetter.show(lettersModel);
                         }
                     }catch (Exception e){
-                        Toast.makeText(TitikInGameChoicesActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        Log.i(TAG, "onItemClick: " + e.getMessage());
+                        //Toast.makeText(TitikInGameChoicesActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
             });

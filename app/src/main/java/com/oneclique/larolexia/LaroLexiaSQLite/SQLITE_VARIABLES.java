@@ -52,5 +52,6 @@ public final class SQLITE_VARIABLES {
         public final static String DB_COL_STAR = "a_star";
         public final static String DB_COL_TIME = "a_time";
         public final static String DB_COL_DATE_TIME_USED = "a_date_time_used";
+        public final static String DB_COL_TRIES = "a_tries";
     }
 }

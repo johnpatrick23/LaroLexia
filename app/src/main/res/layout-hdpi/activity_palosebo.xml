@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".PaloseboActivity"
     android:background="@drawable/ic_bg">
 
     <ImageView
@@ -163,7 +164,7 @@
         android:layout_margin="@dimen/padding_1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_pauseicon" />
+        app:srcCompat="@drawable/ic_backicon" />
 
     <TextView
         android:id="@+id/mTextViewPaloseboInstruction"

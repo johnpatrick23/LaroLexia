@@ -26,7 +26,7 @@ public class LaroLexiaSQLite extends SQLiteOpenHelper {
     private static String DB_PATH;
 
     public LaroLexiaSQLite(Context context) {
-        super(context, SQLITE_VARIABLES.DB_NAME, null, 1);
+        super(context, SQLITE_VARIABLES.DB_NAME, null, 3);
         this.context = context;
         DB_PATH = context.getDatabasePath(SQLITE_VARIABLES.DB_NAME).getAbsolutePath();
         Log.i(TAG, "SQLiteLaroLexia: " + DB_PATH);

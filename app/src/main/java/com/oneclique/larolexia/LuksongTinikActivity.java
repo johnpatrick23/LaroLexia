@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -42,6 +43,7 @@ public class LuksongTinikActivity extends AppCompatActivityHelper {
     private ImageView mImageViewObject;
     private EditText mEditTextAnswer;
     private ImageButton mImageButtonSubmitAnswer;
+    private TextView mTextViewClue;
 
     private LaroLexiaSQLite laroLexiaSQLite;
 
@@ -53,6 +55,7 @@ public class LuksongTinikActivity extends AppCompatActivityHelper {
 
     private int count = 0;
 
+    private String blank = "";
     private int score = 0;
 
     private LettersModel lettersModel;
@@ -61,12 +64,15 @@ public class LuksongTinikActivity extends AppCompatActivityHelper {
     private int currentQuestion = 0;
 
     private CountUpTimer countUpTimer;
+    private String summativeTest = "";
+    private String additionalQuery = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fullScreen();
         setContentView(R.layout.activity_luksong_tinik);
 
+        mTextViewClue = findViewById(R.id.mTextViewClue);
         mImageButtonPause = findViewById(R.id.mImageButtonPause);
         mTextViewQuestion = findViewById(R.id.mTextViewQuestion);
         mTextViewScore = findViewById(R.id.mTextViewScore);
@@ -77,6 +83,13 @@ public class LuksongTinikActivity extends AppCompatActivityHelper {
         Intent intent = getIntent();
         lettersModel = new LettersModel();
         wordsModel = new WordsModel();
+        try{
+            summativeTest = (String) Objects.requireNonNull(intent.getExtras().getSerializable(SUMMATIVE_TEST));
+            additionalQuery = randomGet20;
+        }catch (Exception ee){
+            summativeTest = "";
+            additionalQuery = "";
+        }
         lettersModel = (LettersModel) Objects.requireNonNull(intent.getExtras()).getSerializable(CHOSEN_LETTER);
         wordsModel = (WordsModel) Objects.requireNonNull(intent.getExtras()).getSerializable(CHOSEN_SYLLABLE);
         playerStatisticModel = (PlayerStatisticModel) Objects.requireNonNull(intent.getExtras()).getSerializable(PLAYER_STATISTICS);
@@ -101,23 +114,49 @@ public class LuksongTinikActivity extends AppCompatActivityHelper {
 
         try{
             selectedObject = wordsModel.getA_salita();
+            blank = "__";
+            additionalQuery = "";
         }catch (Exception e){
             Log.i(TAG, "word model is null:<------------");
         }
 
         try{
             selectedObject = lettersModel.getA_letter();
+            blank = "_";
+            additionalQuery = "";
         }catch (Exception e){
             Log.i(TAG, "letter model is null:<------------");
+        }
+
+        try{
+            if(!summativeTest.equals("")){
+                selectedObject = "%%";
+                Log.i(TAG, "onCreate: Summative");
+                Log.i(TAG, "onCreate: " + summativeTest);
+                switch (summativeTest){
+                    case SUMMATIVE_TEST_PANTIG:{
+                        blank = "__";
+                        break;
+                    }
+                    case SUMMATIVE_TEST_TITIK:{
+                        blank = "_";
+                        break;
+                    }
+                }
+            }
+        }catch (Exception e){
+            Log.i(TAG, "Summative test titik is null:<------------");
         }
         playerStatisticModel.setLetter(selectedObject);
         Log.i(TAG, "selectedObject: " + selectedObject);
         if(!selectedObject.equals("")){
             Cursor questionsCursor = laroLexiaSQLite.executeReader(
                     "Select * from " + Table_Questions.DB_TABLE_NAME + " " +
-                            "Where " + Table_Questions.DB_COL_LETTER + " = " +
+                            "Where " + Table_Questions.DB_COL_LETTER + " LIKE " +
                             " '" + selectedObject + "' AND " +
-                            "" + Table_Questions.DB_COL_LEVEL + " = '" + playerStatisticModel.getLevel() + "' ;"
+                            "" + Table_Questions.DB_COL_LEVEL + " = '" + playerStatisticModel.getLevel() + "' AND " +
+                            "" + Table_Questions.DB_COL_GAMEMODE + " = '" + playerStatisticModel.getGameMode() + "'" +
+                            "" + additionalQuery + ";"
             );
             if(questionsCursor.getCount() != 0){
 
@@ -146,7 +185,7 @@ public class LuksongTinikActivity extends AppCompatActivityHelper {
 //                        imageButtonChoices, questionModelList, currentQuestion, score, imageViews, playerStatisticModel, countUpTimer);
                 setUpLuksongTinik(mImageViewObject, mTextViewScore, mEditTextAnswer,
                         mImageButtonSubmitAnswer, questionModelList, currentQuestion,
-                        score, playerStatisticModel, countUpTimer);
+                        score, playerStatisticModel, mTextViewClue, countUpTimer);
             }
         }
 
@@ -159,12 +198,14 @@ public class LuksongTinikActivity extends AppCompatActivityHelper {
                                    final List<QuestionModel> questionModelList,
                                    final int currentQuestion, final int score,
                                    final PlayerStatisticModel playerStatisticModel,
+                                   final TextView mTextViewClue,
                                    final CountUpTimer countUpTimer){
         final LuksongTinikCorrect luksongTinikCorrect = new LuksongTinikCorrect(LuksongTinikActivity.this);
         if(currentQuestion != questionModelList.size()){
             final QuestionModel questionModel = questionModelList.get(currentQuestion);
 //            Toast.makeText(LuksongTinikActivity.this, questionModel.getA_question(), Toast.LENGTH_SHORT).show();
             mEditTextAnswer.setText("");
+            mTextViewClue.setText("");
             mImageViewObject.setImageDrawable(null);
             mImageViewObject.setContentDescription(questionModel.getA_answer().toLowerCase().trim());
             try{
@@ -176,10 +217,12 @@ public class LuksongTinikActivity extends AppCompatActivityHelper {
                 Log.i(TAG, "mImageViewObject.setImageDrawable: " + questionModel.getA_answer().toLowerCase().trim());
             }
 
+            mTextViewClue.setText(questionModel.getA_choices().replace(blank, ""));
+
             mImageButtonSubmitAnswer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String answer = mEditTextAnswer.getText().toString().toLowerCase().trim();
+                    String answer = mEditTextAnswer.getText().toString().toLowerCase().trim() + mTextViewClue.getText().toString().trim().toLowerCase();
                     if(!answer.equals("")){
                         if(mImageViewObject.getContentDescription().toString().equals(answer)){
                             //TODO CORRECT
@@ -193,7 +236,7 @@ public class LuksongTinikActivity extends AppCompatActivityHelper {
                                             String.valueOf((score + 1)), countUpTimer);
                                     setUpLuksongTinik(mImageViewObject, mTextViewScore, mEditTextAnswer,
                                             mImageButtonSubmitAnswer, questionModelList, (currentQuestion + 1),
-                                            (score + 1), playerStatisticModel, countUpTimer);
+                                            (score + 1), playerStatisticModel, mTextViewClue, countUpTimer);
                                 }
                             });
                         }else {
@@ -207,7 +250,7 @@ public class LuksongTinikActivity extends AppCompatActivityHelper {
                                         mTextViewScore.setText(String.valueOf(score));
                                         setUpLuksongTinik(mImageViewObject, mTextViewScore, mEditTextAnswer,
                                                 mImageButtonSubmitAnswer, questionModelList, (currentQuestion + 1),
-                                                (score), playerStatisticModel, countUpTimer);
+                                                (score), playerStatisticModel, mTextViewClue, countUpTimer);
                                     }
                                 });
                             }else{
@@ -278,6 +321,22 @@ public class LuksongTinikActivity extends AppCompatActivityHelper {
                     stars = 1;
                     break;
                 }
+                case "0":{
+                    stars = 0;
+                    break;
+                }
+                default:{
+                    double score_ = (Double.parseDouble(score)/questionModelList.size());
+                    Log.i(TAG, "score_: " + score_);
+                    if(score_ >= 90 || score_ <= 100){
+                        stars = 3;
+                    }else if(score_ >= 75 || score_ <= 89){
+                        stars = 2;
+                    }else if(score_ >= 60 || score_ <= 74){
+                        stars = 1;
+                    }
+                    break;
+                }
             }
             finishedGame.mImageViewFinishedGameStars[0].setImageDrawable(getDrawable(R.drawable.ic_starlocked));
             finishedGame.mImageViewFinishedGameStars[1].setImageDrawable(getDrawable(R.drawable.ic_starlocked));
@@ -297,7 +356,7 @@ public class LuksongTinikActivity extends AppCompatActivityHelper {
                     "where " +
                     "" + Table_Achievements.DB_COL_USERNAME + " = '" + playerStatisticModel.getUsername() + "' and " +
                     "" + Table_Achievements.DB_COL_GAMEMODE + " = '" + playerStatisticModel.getGameMode() + "' and " +
-                    "" + Table_Achievements.DB_COL_LETTER + " = '" + playerStatisticModel.getLetter() + "' and " +
+                    "" + Table_Achievements.DB_COL_LETTER + " like '" + playerStatisticModel.getLetter() + "' and " +
                     "" + Table_Achievements.DB_COL_LEVEL + " = '" + playerStatisticModel.getLevel() + "';"));
 
             Log.i(TAG, ("cursor: " + cursor));
@@ -311,15 +370,17 @@ public class LuksongTinikActivity extends AppCompatActivityHelper {
                             "" + Table_Achievements.DB_COL_LETTER + ", " +
                             "" + Table_Achievements.DB_COL_STAR + ", " +
                             "" + Table_Achievements.DB_COL_TIME + ", " +
-                            "" + Table_Achievements.DB_COL_DATE_TIME_USED + ") " +
+                            "" + Table_Achievements.DB_COL_DATE_TIME_USED + ", " +
+                            "" + Table_Achievements.DB_COL_TRIES + ") " +
                             "VALUES ( '" + System.currentTimeMillis() + "', " +
                             "'" + playerStatisticModel.getUsername() + "', " +
                             "'" + playerStatisticModel.getGameMode() + "', " +
                             "'" + playerStatisticModel.getLevel() + "', " +
-                            "'" + playerStatisticModel.getLetter() + "', " +
+                            "'" + (playerStatisticModel.getLetter().equals("%%") ? "Huling Pagsusulit" : playerStatisticModel.getLetter()) + "', " +
                             "'" + stars + "', " +
                             "'" + score + "', " +
-                            "'" + dateNow + "');");
+                            "'" + dateNow + "', " +
+                            "'" + 1 + "');");
 
                     Log.i(TAG, ("laroLexiaSQLite.executeWriter(INSERT INTO: data is inserted!"));
                 }catch (SQLiteException e){
@@ -357,6 +418,26 @@ public class LuksongTinikActivity extends AppCompatActivityHelper {
                         Log.i(TAG, "laroLexiaSQLite.executeWriter((UPDATE: " + e.getMessage());
                     }
                 }
+                int nt;
+                try {
+                    nt = Integer.parseInt(achievementsModel.getA_tries());
+                }catch (Exception e){
+                    nt = 0;
+                }
+                int numberOfTries = nt + 1;
+                try{
+                    laroLexiaSQLite.executeWriter(("UPDATE " + Table_Achievements.DB_TABLE_NAME + " " +
+                            "set " + Table_Achievements.DB_COL_TRIES + " = '" + numberOfTries + "' " +
+                            "WHERE " +
+                            "" + Table_Achievements.DB_COL_ID + " = '" + achievementsModel.getA_id() + "' AND " +
+                            "" + Table_Achievements.DB_COL_USERNAME + " = '" + achievementsModel.getA_username() + "' AND " +
+                            "" + Table_Achievements.DB_COL_GAMEMODE + " = '" + achievementsModel.getA_gameMode() + "' AND " +
+                            "" + Table_Achievements.DB_COL_LEVEL + " = '" + achievementsModel.getA_level() + "' AND  " +
+                            "" + Table_Achievements.DB_COL_LETTER + " = '" + achievementsModel.getA_letter() + "';"));
+                    Log.i(TAG, ("laroLexiaSQLite.executeWriter(UPDATE: data is updated!"));
+                }catch (SQLiteException e){
+                    Log.i(TAG, "numberOfTries((UPDATE: " + e.getMessage());
+                }
             }
 
             cursor = laroLexiaSQLite.executeReader((
@@ -384,8 +465,32 @@ public class LuksongTinikActivity extends AppCompatActivityHelper {
             }
 
             Log.i(TAG, ("onAnimationEnd: achievement added!"));
-
-            finishedGame.dialog.show();
+            int layoutId = 0;
+            String soundName = "";
+            if(playerStatisticModel.getGameMode().equals("TITIK")){
+                layoutId = R.layout.dialog_storyline_letra_level3_ending1;
+                soundName = "juan_storyline_level3_ending2";
+            }else if(playerStatisticModel.getGameMode().equals("SALITA")){
+                layoutId = R.layout.dialog_storyline_letra_level3_ending2;
+                soundName = "juan_storyline_level3_ending1";
+            }
+            final Storyline storyline = new Storyline(LuksongTinikActivity.this, layoutId);
+            final PlaySound playSound = new PlaySound(LuksongTinikActivity.this);
+            storyline.dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    playSound.stop();
+                    finishedGame.dialog.show();
+                }
+            });
+            storyline.mImageButtonStorylinePlay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    storyline.dialog.cancel();
+                }
+            });
+            playSound.play(soundName, false);
+            storyline.dialog.show();
         }
     }
     @Override

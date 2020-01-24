@@ -64,6 +64,8 @@ public class PaloseboActivity extends AppCompatActivityHelper {
     private int currentQuestion = 0;
 
     private CountUpTimer countUpTimer;
+    private String summativeTest = "";
+    private String additionalQuery = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +75,13 @@ public class PaloseboActivity extends AppCompatActivityHelper {
         Intent intent = getIntent();
         lettersModel = new LettersModel();
         wordsModel = new WordsModel();
+        try {
+            summativeTest = (String) Objects.requireNonNull(intent.getExtras().getSerializable(SUMMATIVE_TEST));
+            additionalQuery = randomGet20;
+        }catch (Exception ee){
+            summativeTest = "";
+            additionalQuery = "";
+        }
         lettersModel = (LettersModel) Objects.requireNonNull(intent.getExtras()).getSerializable(CHOSEN_LETTER);
         wordsModel = (WordsModel) Objects.requireNonNull(intent.getExtras()).getSerializable(CHOSEN_SYLLABLE);
         playerStatisticModel = (PlayerStatisticModel) Objects.requireNonNull(intent.getExtras()).getSerializable(PLAYER_STATISTICS);
@@ -87,14 +96,25 @@ public class PaloseboActivity extends AppCompatActivityHelper {
 
         try{
             selectedObject = wordsModel.getA_salita();
+            additionalQuery = "";
         }catch (Exception e){
             Log.i(TAG, "word model is null:<------------");
         }
 
         try{
             selectedObject = lettersModel.getA_letter();
+            additionalQuery = "";
         }catch (Exception e){
             Log.i(TAG, "letter model is null:<------------");
+        }
+
+        try{
+            if(!summativeTest.equals("")){
+                selectedObject = "%%";
+                Log.i(TAG, "onCreate: Summative");
+            }
+        }catch (Exception e){
+            Log.i(TAG, "Summative test titik is null:<------------");
         }
 
         mImageButtonPaloseboPause = findViewById(R.id.mImageButtonPaloseboPause);
@@ -125,10 +145,13 @@ public class PaloseboActivity extends AppCompatActivityHelper {
 
             Cursor questionsCursor = laroLexiaSQLite.executeReader(
                     "Select * from " + Table_Questions.DB_TABLE_NAME + " " +
-                            "Where " + Table_Questions.DB_COL_LETTER + " = " +
+                            "Where " + Table_Questions.DB_COL_LETTER + " LIKE " +
                             " '" + selectedObject + "' AND " +
-                            "" + Table_Questions.DB_COL_LEVEL + " = '" + playerStatisticModel.getLevel() + "' ;"
+                            "" + Table_Questions.DB_COL_LEVEL + " = '" + playerStatisticModel.getLevel() + "' AND " +
+                            "" + Table_Questions.DB_COL_GAMEMODE + " = '" + playerStatisticModel.getGameMode() + "'" +
+                            "" + additionalQuery + ";"
             );
+
             if(questionsCursor.getCount() != 0){
 
                 while (questionsCursor.moveToNext()){
@@ -223,6 +246,22 @@ public class PaloseboActivity extends AppCompatActivityHelper {
                             stars = 1;
                             break;
                         }
+                        case "0":{
+                            stars = 0;
+                            break;
+                        }
+                        default:{
+                            double score_ = (Double.parseDouble(score)/questionModelList.size());
+                            Log.i(TAG, "score_: " + score_);
+                            if(score_ >= 90 || score_ <= 100){
+                                stars = 3;
+                            }else if(score_ >= 75 || score_ <= 89){
+                                stars = 2;
+                            }else if(score_ >= 60 || score_ <= 74){
+                                stars = 1;
+                            }
+                            break;
+                        }
                     }
                     finishedGame.mImageViewFinishedGameStars[0].setImageDrawable(getDrawable(R.drawable.ic_starlocked));
                     finishedGame.mImageViewFinishedGameStars[1].setImageDrawable(getDrawable(R.drawable.ic_starlocked));
@@ -237,12 +276,11 @@ public class PaloseboActivity extends AppCompatActivityHelper {
                     int totalStars = 0;
                     String dateNow = df.format(dateobj);
 
-
                     Cursor cursor = laroLexiaSQLite.executeReader(("SELECT * FROM " + Table_Achievements.DB_TABLE_NAME + " " +
                             "where " +
                             "" + Table_Achievements.DB_COL_USERNAME + " = '" + playerStatisticModel.getUsername() + "' and " +
                             "" + Table_Achievements.DB_COL_GAMEMODE + " = '" + playerStatisticModel.getGameMode() + "' and " +
-                            "" + Table_Achievements.DB_COL_LETTER + " = '" + playerStatisticModel.getLetter() + "' and " +
+                            "" + Table_Achievements.DB_COL_LETTER + " like '" + playerStatisticModel.getLetter() + "' and " +
                             "" + Table_Achievements.DB_COL_LEVEL + " = '" + playerStatisticModel.getLevel() + "';"));
 
                     Log.i(TAG, ("cursor: " + cursor));
@@ -256,24 +294,26 @@ public class PaloseboActivity extends AppCompatActivityHelper {
                                     "" + Table_Achievements.DB_COL_LETTER + ", " +
                                     "" + Table_Achievements.DB_COL_STAR + ", " +
                                     "" + Table_Achievements.DB_COL_TIME + ", " +
-                                    "" + Table_Achievements.DB_COL_DATE_TIME_USED + ") " +
+                                    "" + Table_Achievements.DB_COL_DATE_TIME_USED + ", " +
+                                    "" + Table_Achievements.DB_COL_TRIES + ") " +
                                     "VALUES ( '" + System.currentTimeMillis() + "', " +
                                     "'" + playerStatisticModel.getUsername() + "', " +
                                     "'" + playerStatisticModel.getGameMode() + "', " +
                                     "'" + playerStatisticModel.getLevel() + "', " +
-                                    "'" + playerStatisticModel.getLetter() + "', " +
+                                    "'" + (playerStatisticModel.getLetter().equals("%%") ? "Huling Pagsusulit" : playerStatisticModel.getLetter()) + "', " +
                                     "'" + stars + "', " +
                                     "'" + score + "', " +
-                                    "'" + dateNow + "');");
+                                    "'" + dateNow + "', " +
+                                    "'" + 1 + "');");
 
                             Log.i(TAG, ("laroLexiaSQLite.executeWriter(INSERT INTO: data is inserted!"));
-                        }catch (SQLiteException e){
+                        }
+                        catch (SQLiteException e){
                             Toast.makeText((PaloseboActivity.this), e.getMessage(), Toast.LENGTH_LONG).show();
                             Log.i(TAG, "laroLexiaSQLite.executeWriter(INSERT INTO: " + e.getMessage());
                         }
                     }
                     else{
-
                         while (cursor.moveToNext()){
                             achievementsModel.setA_id(cursor.getString(cursor.getColumnIndex(Table_Achievements.DB_COL_ID)));
                             achievementsModel.setA_date_time_used(cursor.getString(cursor.getColumnIndex(Table_Achievements.DB_COL_DATE_TIME_USED)));
@@ -283,6 +323,7 @@ public class PaloseboActivity extends AppCompatActivityHelper {
                             achievementsModel.setA_star(cursor.getString(cursor.getColumnIndex(Table_Achievements.DB_COL_STAR)));
                             achievementsModel.setA_time(cursor.getString(cursor.getColumnIndex(Table_Achievements.DB_COL_TIME)));
                             achievementsModel.setA_username(cursor.getString(cursor.getColumnIndex(Table_Achievements.DB_COL_USERNAME)));
+                            achievementsModel.setA_tries(cursor.getString(cursor.getColumnIndex(Table_Achievements.DB_COL_TRIES)));
                             AchievementsModelLog(achievementsModel);
                         }
                         if(stars >= Integer.parseInt(achievementsModel.getA_star())){
@@ -301,6 +342,26 @@ public class PaloseboActivity extends AppCompatActivityHelper {
                                 Toast.makeText((PaloseboActivity.this), e.getMessage(), Toast.LENGTH_LONG).show();
                                 Log.i(TAG, "laroLexiaSQLite.executeWriter((UPDATE: " + e.getMessage());
                             }
+                        }
+                        int nt;
+                        try {
+                            nt = Integer.parseInt(achievementsModel.getA_tries());
+                        }catch (Exception e){
+                            nt = 0;
+                        }
+                        int numberOfTries = nt + 1;
+                        try{
+                            laroLexiaSQLite.executeWriter(("UPDATE " + Table_Achievements.DB_TABLE_NAME + " " +
+                                    "set " + Table_Achievements.DB_COL_TRIES + " = '" + numberOfTries + "' " +
+                                    "WHERE " +
+                                    "" + Table_Achievements.DB_COL_ID + " = '" + achievementsModel.getA_id() + "' AND " +
+                                    "" + Table_Achievements.DB_COL_USERNAME + " = '" + achievementsModel.getA_username() + "' AND " +
+                                    "" + Table_Achievements.DB_COL_GAMEMODE + " = '" + achievementsModel.getA_gameMode() + "' AND " +
+                                    "" + Table_Achievements.DB_COL_LEVEL + " = '" + achievementsModel.getA_level() + "' AND  " +
+                                    "" + Table_Achievements.DB_COL_LETTER + " = '" + achievementsModel.getA_letter() + "';"));
+                            Log.i(TAG, ("laroLexiaSQLite.executeWriter(UPDATE: data is updated!"));
+                        }catch (SQLiteException e){
+                            Log.i(TAG, "numberOfTries((UPDATE: " + e.getMessage());
                         }
                     }
 
@@ -329,8 +390,32 @@ public class PaloseboActivity extends AppCompatActivityHelper {
                     }
 
                     Log.i(TAG, ("onAnimationEnd: achievement added!"));
-
-                    finishedGame.dialog.show();
+                    int layoutId = 0;
+                    String soundName = "";
+                    if(playerStatisticModel.getGameMode().equals("TITIK")){
+                        layoutId = R.layout.dialog_storyline_level1_and_2_ending1;
+                        soundName = "juan_storyline_level1_and_2_ending1";
+                    }else if(playerStatisticModel.getGameMode().equals("SALITA")){
+                        layoutId = R.layout.dialog_storyline_level1_and_2_ending2;
+                        soundName = "juan_storyline_level1_and_2_ending2";
+                    }
+                    final Storyline storyline = new Storyline(PaloseboActivity.this, layoutId);
+                    final PlaySound playSound = new PlaySound(PaloseboActivity.this);
+                    storyline.dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            playSound.stop();
+                            finishedGame.dialog.show();
+                        }
+                    });
+                    storyline.mImageButtonStorylinePlay.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            storyline.dialog.cancel();
+                        }
+                    });
+                    playSound.play(soundName, false);
+                    storyline.dialog.show();
                 }
 
             }
@@ -464,7 +549,7 @@ public class PaloseboActivity extends AppCompatActivityHelper {
 
                         }
                         try{
-                            correctAnswer.show(GetDrawableResource(PaloseboActivity.this, finalChoices.get(finalI).toLowerCase()), finalChoices.get(finalI));
+                            correctAnswer.show(GetDrawableResource(PaloseboActivity.this, finalChoices.get(finalI).toLowerCase()), finalChoices.get(finalI), playerStatisticModel.getGameMode());
                         }catch (Exception e){
                             Log.i(TAG, "onClick: " + e.getMessage());
                         }

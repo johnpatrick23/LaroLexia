@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.oneclique.larolexia.LaroLexiaSQLite.LaroLexiaSQLite;
 import com.oneclique.larolexia.LaroLexiaSQLite.LaroLexiaSQLiteModel.AchievementsModel;
@@ -59,6 +60,8 @@ public class AchievementsActivity extends AppCompatActivityHelper {
                 achievementsModel.setA_star(cursor.getString(cursor.getColumnIndex(Table_Achievements.DB_COL_STAR)));
                 achievementsModel.setA_time(cursor.getString(cursor.getColumnIndex(Table_Achievements.DB_COL_TIME)));
                 achievementsModel.setA_username(cursor.getString(cursor.getColumnIndex(Table_Achievements.DB_COL_USERNAME)));
+                achievementsModel.setA_username(cursor.getString(cursor.getColumnIndex(Table_Achievements.DB_COL_USERNAME)));
+                achievementsModel.setA_tries(cursor.getString(cursor.getColumnIndex(Table_Achievements.DB_COL_TRIES)));
                 AchievementsModelLog(achievementsModel);
                 achievementsModelList.add(achievementsModel);
             }

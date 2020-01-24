@@ -43,6 +43,7 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
     private TextView mTextViewBasagPalayokQuestion;
 
     private ImageButton mImageButtonBasagPalayokPause;
+    private ImageView mImageViewBasagPalayokPicture;
 
     private Button[] mButtonBasagPalayokChoices;
 
@@ -64,6 +65,8 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
     private int currentQuestion = 0;
 
     private CountUpTimer countUpTimer;
+    private String summativeTest = "";
+    private String additionalQuery = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,12 +78,19 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
         mTextViewBasagpalayokScore = findViewById(R.id.mTextViewBasagpalayokScore);
         mTextViewBasagPalayokQuestion = findViewById(R.id.mTextViewBasagPalayokQuestion);
         mImageButtonBasagPalayokPause = findViewById(R.id.mImageButtonBasagPalayokPause);
-
+        mImageViewBasagPalayokPicture = findViewById(R.id.mImageViewBasagPalayokPicture);
 
 
         Intent intent = getIntent();
         lettersModel = new LettersModel();
         wordsModel = new WordsModel();
+        try{
+            summativeTest = (String) Objects.requireNonNull(intent.getExtras().getSerializable(SUMMATIVE_TEST));
+            additionalQuery = randomGet20;
+        }catch (Exception ee){
+            summativeTest = "";
+            additionalQuery = "";
+        }
         lettersModel = (LettersModel) Objects.requireNonNull(intent.getExtras()).getSerializable(CHOSEN_LETTER);
         wordsModel = (WordsModel) Objects.requireNonNull(intent.getExtras()).getSerializable(CHOSEN_SYLLABLE);
         playerStatisticModel = (PlayerStatisticModel) Objects.requireNonNull(intent.getExtras()).getSerializable(PLAYER_STATISTICS);
@@ -112,6 +122,8 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
                     findViewById(R.id.mButtonBasagPalayokChoice5)
             };
             blank = "__";
+            additionalQuery = "";
+            Log.i(TAG, "onCreate: Word");
         }catch (Exception e){
             Log.i(TAG, "word model is null:<------------");
         }
@@ -124,23 +136,64 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
                     findViewById(R.id.mButtonBasagPalayokChoice3),
                     findViewById(R.id.mButtonBasagPalayokChoice4)
             };
-
+            additionalQuery = "";
             Button buttonChoice = findViewById(R.id.mButtonBasagPalayokChoice5);
             buttonChoice.setVisibility(View.GONE);
             blank = "_";
+            Log.i(TAG, "onCreate: Letter");
         }catch (Exception e){
             Log.i(TAG, "letter model is null:<------------");
         }
+
+        try{
+            if(!summativeTest.equals("")){
+                selectedObject = "%%";
+                Log.i(TAG, "onCreate: Summative");
+                Log.i(TAG, "onCreate: " + summativeTest);
+                switch (summativeTest){
+                    case SUMMATIVE_TEST_PANTIG:{
+                        mButtonBasagPalayokChoices = new Button[]{
+                                findViewById(R.id.mButtonBasagPalayokChoice1),
+                                findViewById(R.id.mButtonBasagPalayokChoice2),
+                                findViewById(R.id.mButtonBasagPalayokChoice3),
+                                findViewById(R.id.mButtonBasagPalayokChoice4),
+                                findViewById(R.id.mButtonBasagPalayokChoice5)
+                        };
+                        blank = "__";
+                        break;
+                    }
+                    case SUMMATIVE_TEST_TITIK:{
+                        mButtonBasagPalayokChoices = new Button[]{
+                                findViewById(R.id.mButtonBasagPalayokChoice1),
+                                findViewById(R.id.mButtonBasagPalayokChoice2),
+                                findViewById(R.id.mButtonBasagPalayokChoice3),
+                                findViewById(R.id.mButtonBasagPalayokChoice4)
+                        };
+
+                        Button buttonChoice = findViewById(R.id.mButtonBasagPalayokChoice5);
+                        buttonChoice.setVisibility(View.GONE);
+                        blank = "_";
+                        break;
+                    }
+                }
+            }
+        }catch (Exception e){
+            Log.i(TAG, "Summative test titik is null:<------------");
+        }
+
         playerStatisticModel.setLetter(selectedObject);
+        Log.i(TAG, "playerStatisticModel.getLevel: " + playerStatisticModel.getLevel());
+        Log.i(TAG, "playerStatisticModel.getLevel: " + playerStatisticModel.getGameMode());
         Log.i(TAG, "selectedObject: " + selectedObject);
         if(!selectedObject.equals("")){
             try{
-
                 Cursor cursor = laroLexiaSQLite.executeReader(
                         "Select * from " + Table_Questions.DB_TABLE_NAME + " " +
-                                "Where " + Table_Questions.DB_COL_LETTER + " = " +
+                                "Where " + Table_Questions.DB_COL_LETTER + " LIKE " +
                                 " '" + selectedObject + "' AND " +
-                                "" + Table_Questions.DB_COL_LEVEL + " = '" + playerStatisticModel.getLevel() + "' ;"
+                                "" + Table_Questions.DB_COL_LEVEL + " = '" + playerStatisticModel.getLevel() + "' AND " +
+                                "" + Table_Questions.DB_COL_GAMEMODE + " = '" + playerStatisticModel.getGameMode() + "'" +
+                                "" + additionalQuery + ";"
                 );
 
                 Log.i(TAG, "cursor.getCount(): " + cursor.getCount());
@@ -171,7 +224,7 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
 
                 setUpBasagPalayokQuestion(mTextViewBasagPalayokQuestion, mTextViewBasagpalayokScore,
                         mButtonBasagPalayokChoices, questionModelList, currentQuestion, score,
-                        playerStatisticModel, countUpTimer);
+                        playerStatisticModel, mImageViewBasagPalayokPicture, countUpTimer);
             }catch (SQLiteException e){
                 Log.i(TAG, "onCreate: " + e.getMessage());
             }
@@ -197,7 +250,9 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
             final Button[] mButtonBasagPalayokChoices,
             final List<QuestionModel> questionModelList,
             final int currentQuestion, final int score,
-            final PlayerStatisticModel playerStatisticModel, final CountUpTimer countUpTimer)
+            final PlayerStatisticModel playerStatisticModel,
+            final ImageView mImageViewBasagPalayokPicture,
+            final CountUpTimer countUpTimer)
     {
         final BasagPalayokCorrect basagPalayokCorrect = new BasagPalayokCorrect(BasagPalayokActivity.this);
 
@@ -207,16 +262,15 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
 
             /*mTextViewBasagPalayokInstruction.setText(
                     Html.fromHtml(questionModel.getA_instruction().replace("<char/>", playerStatisticModel.getCharacter())));*/
-
             mTextViewBasagPalayokQuestion.setText(Html.fromHtml(questionModel.getA_question()));
             List<String> choices = LogicHelper.choiceReBuilder(questionModel.getA_choices());
             final List<Integer> numbers = LogicHelper.randomNumbers(1, choices.size());
             List<String> tmpChoices = new ArrayList<>();
             mTextViewBasagpalayokScore.setText(String.valueOf(score));
-            Log.i(TAG, "setUpPaloseboQuestion: Choices");
+            Log.i(TAG, "setBasagPalayokQuestion: Choices");
             for (int i = 0; i < choices.size(); i++) {
                 tmpChoices.add(choices.get(numbers.get(i)-1).trim());
-                Log.i(TAG, "setUpPaloseboQuestion: " + choices.get(numbers.get(i)-1));
+                Log.i(TAG, "setBasagPalayokQuestion: " + choices.get(numbers.get(i)-1));
             }
 
             final List<String> finalChoices  = tmpChoices;
@@ -226,16 +280,27 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
                 mButtonBasagPalayokChoices[i].setTextColor(Color.WHITE);
                 mButtonBasagPalayokChoices[i].setText(finalChoices.get(i));
                 mButtonBasagPalayokChoices[finalI].setBackgroundResource(R.drawable.ic_palayok);
+
+                String getA_question = questionModel.getA_question();
+                String correct_Word =
+                        getA_question
+                                .replace("Piliin ang nawawalang " + (blank.equals("_") ? "letra" : "salita" ) + " ", "")
+                                .replace("<b>", "")
+                                .replace("</b>","")
+                                .replace(blank, questionModel.getA_answer());
+                Log.i(TAG, "setUpBasagPalayokQuestion: " + (blank.equals("_") ? "letra" : "salita" ));
+                mImageViewBasagPalayokPicture.setImageDrawable(GetDrawableResource((BasagPalayokActivity.this), correct_Word.trim().toLowerCase()));
                 mButtonBasagPalayokChoices[i].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mButtonBasagPalayokChoices[finalI].setTextColor(Color.BLACK);
                         mButtonBasagPalayokChoices[finalI].setBackgroundResource(R.drawable.ic_broken_palayok);
-                        String correctWord = "";
+                        String correctWord;
+                        String getA_question = questionModel.getA_question();
+
                         if(questionModel.getA_answer().toLowerCase().trim().equals(finalChoices.get(finalI).toLowerCase())){
                             // TODO Correct
                             Log.i(TAG, "onClick: Tama");
-                            String getA_question = questionModel.getA_question();
                             correctWord =
                                     getA_question
                                             .replace("Piliin ang nawawalang letra ", "")
@@ -251,7 +316,7 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
                                             String.valueOf((score + 1)), countUpTimer);
                                     setUpBasagPalayokQuestion(mTextViewBasagPalayokQuestion, mTextViewBasagpalayokScore,
                                             mButtonBasagPalayokChoices, questionModelList, (currentQuestion + 1), (score + 1),
-                                            playerStatisticModel, countUpTimer);
+                                            playerStatisticModel, mImageViewBasagPalayokPicture,countUpTimer);
                                 }
                             });
                             basagPalayokCorrect.dialog.show();
@@ -262,7 +327,7 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
                             //climbUp(imageViews, score, questionModelList.size(), String.valueOf((score)), playerStatisticModel.getCharacter());
                             Log.i(TAG, "(currentQuestion + 1): " + (currentQuestion + 1));
                             Log.i(TAG, "questionModelList.size(): " + questionModelList.size());
-                            String getA_question = questionModel.getA_question();
+                            getA_question = questionModel.getA_question();
                             correctWord =
                                     getA_question
                                             .replace("Piliin ang nawawalang letra ", "")
@@ -277,7 +342,7 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
                                         mTextViewBasagpalayokScore.setText(String.valueOf(score + 1));
                                         setUpBasagPalayokQuestion(mTextViewBasagPalayokQuestion,
                                                 mTextViewBasagpalayokScore, mButtonBasagPalayokChoices, questionModelList,
-                                                (currentQuestion + 1), score, playerStatisticModel, countUpTimer);
+                                                (currentQuestion + 1), score, playerStatisticModel, mImageViewBasagPalayokPicture, countUpTimer);
                                     }
                                 });
                             }else{
@@ -301,7 +366,7 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
     }
 
     public void checkIfGameIsCompleted(final int currentQuestion, final int maxQuestion,
-                                       final String score, final CountUpTimer countUpTimer){
+                                       String score, final CountUpTimer countUpTimer){
         final FinishedGame finishedGame = new FinishedGame(BasagPalayokActivity.this);
         finishedGame.mButtonFinishedPlayAgain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -327,6 +392,7 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
             finishedGame.mTextViewFinishedGameMode.setText("Natapos mo ang laro!");
             finishedGame.mTextViewPointsGameMode.setText(points);
             int stars = 0;
+
             switch (score){
                 case "5":{
                     stars = 3;
@@ -338,6 +404,22 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
                 }
                 case "2": case "1":{
                     stars = 1;
+                    break;
+                }
+                case "0":{
+                    stars = 0;
+                    break;
+                }
+                default:{
+                    double score_ = (Double.parseDouble(score)/questionModelList.size());
+                    Log.i(TAG, "score_: " + score_);
+                    if(score_ >= 90 || score_ <= 100){
+                        stars = 3;
+                    }else if(score_ >= 75 || score_ <= 89){
+                        stars = 2;
+                    }else if(score_ >= 60 || score_ <= 74){
+                        stars = 1;
+                    }
                     break;
                 }
             }
@@ -359,7 +441,7 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
                     "where " +
                     "" + Table_Achievements.DB_COL_USERNAME + " = '" + playerStatisticModel.getUsername() + "' and " +
                     "" + Table_Achievements.DB_COL_GAMEMODE + " = '" + playerStatisticModel.getGameMode() + "' and " +
-                    "" + Table_Achievements.DB_COL_LETTER + " = '" + playerStatisticModel.getLetter() + "' and " +
+                    "" + Table_Achievements.DB_COL_LETTER + " like '" + playerStatisticModel.getLetter() + "' and " +
                     "" + Table_Achievements.DB_COL_LEVEL + " = '" + playerStatisticModel.getLevel() + "';"));
 
             Log.i(TAG, ("cursor: " + cursor));
@@ -373,18 +455,21 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
                             "" + Table_Achievements.DB_COL_LETTER + ", " +
                             "" + Table_Achievements.DB_COL_STAR + ", " +
                             "" + Table_Achievements.DB_COL_TIME + ", " +
-                            "" + Table_Achievements.DB_COL_DATE_TIME_USED + ") " +
+                            "" + Table_Achievements.DB_COL_DATE_TIME_USED + ", " +
+                            "" + Table_Achievements.DB_COL_TRIES + ") " +
                             "VALUES ( '" + System.currentTimeMillis() + "', " +
                             "'" + playerStatisticModel.getUsername() + "', " +
                             "'" + playerStatisticModel.getGameMode() + "', " +
                             "'" + playerStatisticModel.getLevel() + "', " +
-                            "'" + playerStatisticModel.getLetter() + "', " +
+                            "'" + (playerStatisticModel.getLetter().equals("%%") ? "Huling Pagsusulit" : playerStatisticModel.getLetter()) + "', " +
                             "'" + stars + "', " +
                             "'" + score + "', " +
-                            "'" + dateNow + "');");
+                            "'" + dateNow + "', " +
+                            "'" + 1 + "');");
 
                     Log.i(TAG, ("laroLexiaSQLite.executeWriter(INSERT INTO: data is inserted!"));
-                }catch (SQLiteException e){
+                }
+                catch (SQLiteException e){
                     Toast.makeText((BasagPalayokActivity.this), e.getMessage(), Toast.LENGTH_LONG).show();
                     Log.i(TAG, "laroLexiaSQLite.executeWriter(INSERT INTO: " + e.getMessage());
                 }
@@ -400,6 +485,7 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
                     achievementsModel.setA_star(cursor.getString(cursor.getColumnIndex(Table_Achievements.DB_COL_STAR)));
                     achievementsModel.setA_time(cursor.getString(cursor.getColumnIndex(Table_Achievements.DB_COL_TIME)));
                     achievementsModel.setA_username(cursor.getString(cursor.getColumnIndex(Table_Achievements.DB_COL_USERNAME)));
+                    achievementsModel.setA_tries(cursor.getString(cursor.getColumnIndex(Table_Achievements.DB_COL_TRIES)));
                     AchievementsModelLog(achievementsModel);
                 }
                 if(stars >= Integer.parseInt(achievementsModel.getA_star())){
@@ -418,6 +504,26 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
                         Toast.makeText((BasagPalayokActivity.this), e.getMessage(), Toast.LENGTH_LONG).show();
                         Log.i(TAG, "laroLexiaSQLite.executeWriter((UPDATE: " + e.getMessage());
                     }
+                }
+                int nt;
+                try {
+                    nt = Integer.parseInt(achievementsModel.getA_tries());
+                }catch (Exception e){
+                    nt = 0;
+                }
+                int numberOfTries = nt + 1;
+                try{
+                    laroLexiaSQLite.executeWriter(("UPDATE " + Table_Achievements.DB_TABLE_NAME + " " +
+                            "set " + Table_Achievements.DB_COL_TRIES + " = '" + numberOfTries + "' " +
+                            "WHERE " +
+                            "" + Table_Achievements.DB_COL_ID + " = '" + achievementsModel.getA_id() + "' AND " +
+                            "" + Table_Achievements.DB_COL_USERNAME + " = '" + achievementsModel.getA_username() + "' AND " +
+                            "" + Table_Achievements.DB_COL_GAMEMODE + " = '" + achievementsModel.getA_gameMode() + "' AND " +
+                            "" + Table_Achievements.DB_COL_LEVEL + " = '" + achievementsModel.getA_level() + "' AND  " +
+                            "" + Table_Achievements.DB_COL_LETTER + " = '" + achievementsModel.getA_letter() + "';"));
+                    Log.i(TAG, ("laroLexiaSQLite.executeWriter(UPDATE: data is updated!"));
+                }catch (SQLiteException e){
+                    Log.i(TAG, "numberOfTries((UPDATE: " + e.getMessage());
                 }
             }
 
@@ -446,8 +552,32 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
             }
 
             Log.i(TAG, ("onAnimationEnd: achievement added!"));
-
-            finishedGame.dialog.show();
+            int layoutId = 0;
+            String soundName = "";
+            if(playerStatisticModel.getGameMode().equals("TITIK")){
+                layoutId = R.layout.dialog_storyline_letra_level2_scenario_1;
+                soundName = "juan_storyline_level1_and_2_ending1";
+            }else if(playerStatisticModel.getGameMode().equals("SALITA")){
+                layoutId = R.layout.dialog_storyline_letra_level2_scenario_2;
+                soundName = "juan_storyline_level1_and_2_ending2";
+            }
+            final Storyline storyline = new Storyline(BasagPalayokActivity.this, layoutId);
+            final PlaySound playSound = new PlaySound(BasagPalayokActivity.this);
+            storyline.dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    playSound.stop();
+                    finishedGame.dialog.show();
+                }
+            });
+            storyline.mImageButtonStorylinePlay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    storyline.dialog.cancel();
+                }
+            });
+            playSound.play(soundName, false);
+            storyline.dialog.show();
         }
     }
 

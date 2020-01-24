@@ -16,7 +16,6 @@
         android:text="TextView"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="@dimen/font_l"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

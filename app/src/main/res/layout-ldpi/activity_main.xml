@@ -5,6 +5,7 @@
     android:id="@+id/mConstraintLayoutMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".MainActivity"
     android:background="@drawable/ic_bg">
 
     <ImageButton
@@ -88,7 +89,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="99"
+            android:text=""
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="@dimen/player_name_font"

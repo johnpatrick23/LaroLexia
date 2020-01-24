@@ -43,7 +43,7 @@
         app:srcCompat="@drawable/ic_salita" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/mTextViewPaloseboGameMode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_stars"

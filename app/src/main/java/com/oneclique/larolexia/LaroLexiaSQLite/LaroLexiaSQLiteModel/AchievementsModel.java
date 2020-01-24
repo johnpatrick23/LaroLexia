@@ -9,6 +9,15 @@ public class AchievementsModel {
     private String a_star;
     private String a_time;
     private String a_date_time_used;
+    private String a_tries;
+
+    public String getA_tries() {
+        return a_tries;
+    }
+
+    public void setA_tries(String a_tries) {
+        this.a_tries = a_tries;
+    }
 
     public String getA_username() {
         return a_username;

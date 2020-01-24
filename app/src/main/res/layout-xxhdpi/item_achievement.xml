@@ -28,20 +28,20 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/textViews7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/verdana_bold"
                     android:padding="4dp"
                     android:singleLine="true"
-                    android:text="Kategorya:"
+                    android:text="Bilang ng pag-ulit:"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="@dimen/font_m"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/mTextViewAchievementsCategory"
+                    android:id="@+id/mTextViewAchievementsTries"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/verdana_bold"
@@ -62,20 +62,20 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView9"
+                    android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/verdana_bold"
                     android:padding="4dp"
                     android:singleLine="true"
-                    android:text="Titik:"
+                    android:text="Kategorya:"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="@dimen/font_m"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/mTextViewAchievementsLetter"
+                    android:id="@+id/mTextViewAchievementsCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/verdana_bold"
@@ -120,6 +120,40 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_2"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/mTextViewAchievementsStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/verdana_bold"
+                    android:padding="4dp"
+                    android:singleLine="true"
+                    android:text="Titik:"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_m"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/mTextViewAchievementsLetter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/verdana_bold"
+                    android:padding="4dp"
+                    android:singleLine="true"
+                    android:text="99"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_m"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"

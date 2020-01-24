@@ -11,10 +11,11 @@ import android.widget.TextView;
 
 import com.oneclique.larolexia.LaroLexiaSQLite.LaroLexiaSQLiteModel.AchievementsModel;
 import com.oneclique.larolexia.R;
+import com.oneclique.larolexia.Variables;
 
 import java.util.List;
 
-public class AchievementsListViewAdapter extends BaseAdapter {
+public class AchievementsListViewAdapter extends BaseAdapter implements Variables {
 
     private Context context;
     private List<AchievementsModel> achievementsModels;
@@ -50,16 +51,29 @@ public class AchievementsListViewAdapter extends BaseAdapter {
         TextView mTextViewAchievementsCategory = convertView.findViewById(R.id.mTextViewAchievementsCategory);
         TextView mTextViewAchievementsLevel = convertView.findViewById(R.id.mTextViewAchievementsLevel);
         TextView mTextViewAchievementsLetter = convertView.findViewById(R.id.mTextViewAchievementsLetter);
-
+        TextView mTextViewAchievementsTries = convertView.findViewById(R.id.mTextViewAchievementsTries);
+        TextView mTextViewAchievementsStatus = convertView.findViewById(R.id.mTextViewAchievementsStatus);
         ImageView[] mImageViewAchievementsStars = {
                 convertView.findViewById(R.id.mImageViewAchievementsStar1),
                 convertView.findViewById(R.id.mImageViewAchievementsStar2),
                 convertView.findViewById(R.id.mImageViewAchievementsStar3),
         };
+
         mTextViewAchievementsScore.setText(achievementsModels.get(position).getA_time());
         mTextViewAchievementsCategory.setText(achievementsModels.get(position).getA_gameMode());
         mTextViewAchievementsLevel.setText(achievementsModels.get(position).getA_level());
         mTextViewAchievementsLetter.setText(achievementsModels.get(position).getA_letter());
+        mTextViewAchievementsTries.setText(achievementsModels.get(position).getA_tries());
+
+        if(achievementsModels.get(position).getA_gameMode().equals(GameMode.SALITA.getValue())){
+            mTextViewAchievementsStatus.setText("Pantig:");
+        }
+        else if(achievementsModels.get(position).getA_gameMode().equals(GameMode.TITIK.getValue())){
+            mTextViewAchievementsStatus.setText("Titik:");
+        }else {
+            mTextViewAchievementsStatus.setText("");
+        }
+
         int stars = Integer.parseInt(achievementsModels.get(position).getA_star());
 
         mImageViewAchievementsStars[0].setImageResource(R.drawable.ic_starlocked);

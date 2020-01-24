@@ -1,6 +1,8 @@
 package com.oneclique.larolexia;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,51 +18,82 @@ import java.util.Objects;
 public class LevelsActivity extends AppCompatActivityHelper {
 
     private PlayerStatisticModel playerStatisticModel;
+    private Intent intent_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fullScreen();
         setContentView(R.layout.activity_levels);
-
         Intent intent = getIntent();
         playerStatisticModel = (PlayerStatisticModel) Objects.requireNonNull(intent.getExtras())
                 .getSerializable(PLAYER_STATISTICS);
 
     }
+
     public void SelectedLevel(View v){
-        Intent intent;
+        int resourceId = 0;
+        int mode = 0;
+        String soundName = "";
         if(playerStatisticModel.getGameMode().equals("TITIK")){
-            intent = new Intent(LevelsActivity.this, TitikInGameChoicesActivity.class);
-        }else {
-            intent = new Intent(LevelsActivity.this, SalitaInGameChoicesActivity.class);
+            intent_ = new Intent(LevelsActivity.this, TitikInGameChoicesActivity.class);
+            mode = 1;
+        }
+        else {
+            intent_ = new Intent(LevelsActivity.this, SalitaInGameChoicesActivity.class);
+            mode = 2;
         }
         switch (v.getId()){
             case R.id.mButtonLevel1:{
                 playerStatisticModel.setLevel("1");
                 Log.i(TAG, "SelectedLevel: 1");
-                Toast.makeText(LevelsActivity.this, "Level 1", Toast.LENGTH_SHORT).show();
-                intent.putExtra(PLAYER_STATISTICS, playerStatisticModel);
+                resourceId = mode == 1 ? R.layout.dialog_storyline_letra_level1_scenario_1 : R.layout.dialog_storyline_letra_level1_scenario_2;
+                soundName = mode == 1 ? "juan_storyline_level1_scenario1" : "juan_storyline_level1_scenario2";
+                //Toast.makeText(LevelsActivity.this, "Level 1", Toast.LENGTH_SHORT).show();
+                intent_.putExtra(PLAYER_STATISTICS, playerStatisticModel);
                 break;
             }
             case R.id.mButtonLevel2:{
                 playerStatisticModel.setLevel("2");
                 Log.i(TAG, "SelectedLevel: 3");
-                Toast.makeText(LevelsActivity.this, "Level 2", Toast.LENGTH_SHORT).show();
-                intent.putExtra(PLAYER_STATISTICS, playerStatisticModel);
+                resourceId = mode == 1 ? R.layout.dialog_storyline_letra_level2_scenario_1 : R.layout.dialog_storyline_letra_level2_scenario_2;
+                soundName = mode == 1 ? "juan_storyline_level2_scenario1" : "juan_storyline_level2_scenario2";
+                //Toast.makeText(LevelsActivity.this, "Level 2", Toast.LENGTH_SHORT).show();
+                intent_.putExtra(PLAYER_STATISTICS, playerStatisticModel);
                 break;
             }
             case R.id.mButtonLevel3:{
                 playerStatisticModel.setLevel("3");
                 Log.i(TAG, "SelectedLevel: 3");
-                Toast.makeText(LevelsActivity.this, "Level 3", Toast.LENGTH_SHORT).show();
-                intent.putExtra(PLAYER_STATISTICS, playerStatisticModel);
+                resourceId = 0;
+                //Toast.makeText(LevelsActivity.this, "Level 3", Toast.LENGTH_SHORT).show();
+                intent_.putExtra(PLAYER_STATISTICS, playerStatisticModel);
                 break;
             }
         }
-        PlayerStatisticLog(playerStatisticModel);
-        startActivityForResult(intent, REQUEST_PLAYER_STATISTIC);
-
+        if(resourceId!=0){
+            final Storyline storyline = new Storyline(LevelsActivity.this, resourceId);
+            final PlaySound playSound = new PlaySound(LevelsActivity.this);
+            storyline.dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    playSound.stop();
+                    PlayerStatisticLog(playerStatisticModel);
+                    startActivityForResult(intent_, REQUEST_PLAYER_STATISTIC);
+                }
+            });
+            storyline.mImageButtonStorylinePlay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    storyline.dialog.cancel();
+                }
+            });
+            playSound.play(soundName, false);
+            storyline.dialog.show();
+        }else {
+            PlayerStatisticLog(playerStatisticModel);
+            startActivityForResult(intent_, REQUEST_PLAYER_STATISTIC);
+        }
     }
 
     @Override

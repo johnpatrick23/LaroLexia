@@ -46,6 +46,8 @@ public class AppCompatActivityHelper extends AppCompatActivity implements Variab
     private String mStringVideoPath;
     private String mStringImagePath;
 
+    public String randomGet20 = " ORDER BY random() LIMIT 20";
+
     protected Typeface verdana_bold (){
         return Typeface.createFromAsset(getAssets(), "verdanab.ttf");
     }
@@ -80,38 +82,21 @@ public class AppCompatActivityHelper extends AppCompatActivity implements Variab
                 ContextCompat.checkSelfPermission(this,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.WRITE_SECURE_SETTINGS) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.RECORD_AUDIO) &&
+                        Manifest.permission.WRITE_SECURE_SETTINGS) != PackageManager.PERMISSION_GRANTED) {
+            if (
                     ActivityCompat.shouldShowRequestPermissionRationale(this,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE) &&
                     ActivityCompat.shouldShowRequestPermissionRationale(this,
                             Manifest.permission.READ_EXTERNAL_STORAGE) &&
                     ActivityCompat.shouldShowRequestPermissionRationale(this,
-                            Manifest.permission.CAMERA) &&
-                    ActivityCompat.shouldShowRequestPermissionRationale(this,
-                            Manifest.permission.WRITE_SECURE_SETTINGS) &&
-                    ActivityCompat.shouldShowRequestPermissionRationale(this,
-                            Manifest.permission.ACCESS_FINE_LOCATION) &&
-                    ActivityCompat.shouldShowRequestPermissionRationale(this,
-                            Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                            Manifest.permission.WRITE_SECURE_SETTINGS)) {
             } else {
                 ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.RECORD_AUDIO,
+                        new String[]{
+
                                 Manifest.permission.READ_EXTERNAL_STORAGE,
                                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.CAMERA,
-                                Manifest.permission.WRITE_SECURE_SETTINGS,
-                                Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.ACCESS_COARSE_LOCATION},
+                                Manifest.permission.WRITE_SECURE_SETTINGS},
                         100);
                 try {
                     createPath(context);
@@ -119,6 +104,8 @@ public class AppCompatActivityHelper extends AppCompatActivity implements Variab
                     e.printStackTrace();
                 }
             }
+        }else{
+            Log.i(TAG, "requestPermission: Approved");
         }
     }
 
@@ -351,6 +338,7 @@ public class AppCompatActivityHelper extends AppCompatActivity implements Variab
         TextView mTextViewCorrectLetter;
         Button mButtonCorrectNext;
         TextView mTextViewCorrectionStatus;
+        TextView mTextViewPaloseboGameMode;
 
         CorrectAnswer(Context context){
             dialog = new Dialog(context);
@@ -360,7 +348,7 @@ public class AppCompatActivityHelper extends AppCompatActivity implements Variab
             mButtonCorrectNext = dialog.findViewById(R.id.mButtonCorrectNext);
             mImageViewCorrectImage = dialog.findViewById(R.id.mImageViewCorrectImage);
             mTextViewCorrectLetter = dialog.findViewById(R.id.mTextViewCorrectLetter);
-
+            mTextViewPaloseboGameMode = dialog.findViewById(R.id.mTextViewPaloseboGameMode);
             mButtonCorrectNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -369,9 +357,12 @@ public class AppCompatActivityHelper extends AppCompatActivity implements Variab
             });
         }
 
-        void show(Drawable drawable, String correctLetter){
+        void show(Drawable drawable, String correctLetter, String gameMode){
             this.mImageViewCorrectImage.setImageDrawable(drawable);
-            mTextViewCorrectLetter.setText(String.valueOf(correctLetter.charAt(0)));
+            String correct = gameMode.equals(GameMode.TITIK.getValue()) ? String.valueOf(correctLetter.charAt(0)) : correctLetter.charAt(0) + String.valueOf(correctLetter.charAt(1));
+            String gameStatus = "Ito ay naguumpisa sa " + (gameMode.equals(GameMode.TITIK.getValue()) ? "letrang" : "pantig na");
+            mTextViewCorrectLetter.setText(correct);
+            mTextViewPaloseboGameMode.setText(gameStatus);
             dialog.show();
         }
     }
@@ -385,8 +376,8 @@ public class AppCompatActivityHelper extends AppCompatActivity implements Variab
 
         FinishedGame(Context context){
             dialog = new Dialog(context);
-            FullscreenDialog(dialog);
             dialog.setContentView(R.layout.dialog_finished_palosebo);
+            FullscreenDialog(dialog);
             dialog.setCancelable(false);
 
             mImageViewFinishedGameStars = new ImageView[]{
@@ -401,4 +392,18 @@ public class AppCompatActivityHelper extends AppCompatActivity implements Variab
         }
 
     }
+
+    class Storyline{
+        Dialog dialog;
+        ImageButton mImageButtonStorylinePlay;
+        Storyline(Context context, int ResourceId){
+            dialog = new Dialog(context);
+            dialog.setContentView(ResourceId);
+            FullscreenDialog(dialog);
+            dialog.setCancelable(false);
+            mImageButtonStorylinePlay = dialog.findViewById(R.id.mImageButtonStorylinePlay);
+        }
+
+    }
+
 }
