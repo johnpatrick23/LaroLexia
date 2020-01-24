@@ -296,7 +296,7 @@ public class AppCompatActivityHelper extends AppCompatActivity implements Variab
             mTextViewCorrectWord = dialog.findViewById(R.id.mTextViewCorrectWord);
             mButtonCorrectNext = dialog.findViewById(R.id.mButtonCorrectNext);
             mTextViewCorrectionStatus = dialog.findViewById(R.id.mTextViewCorrectionStatus);
-
+                //done
             mButtonCorrectNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
