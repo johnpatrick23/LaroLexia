@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,8 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
     private ImageView mImageViewBasagPalayokPicture;
 
     private Button[] mButtonBasagPalayokChoices;
+    private Button mButtonPalayok;
+    private LinearLayout mLinearLayoutBasagPalayokChoices;
 
     private LaroLexiaSQLite laroLexiaSQLite;
     private PlayerStatisticModel playerStatisticModel;
@@ -79,7 +82,8 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
         mTextViewBasagPalayokQuestion = findViewById(R.id.mTextViewBasagPalayokQuestion);
         mImageButtonBasagPalayokPause = findViewById(R.id.mImageButtonBasagPalayokPause);
         mImageViewBasagPalayokPicture = findViewById(R.id.mImageViewBasagPalayokPicture);
-
+        mButtonPalayok = findViewById(R.id.mButtonPalayok);
+        mLinearLayoutBasagPalayokChoices = findViewById(R.id.mLinearLayoutBasagPalayokChoices);
 
         Intent intent = getIntent();
         lettersModel = new LettersModel();
@@ -224,7 +228,8 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
 
                 setUpBasagPalayokQuestion(mTextViewBasagPalayokQuestion, mTextViewBasagpalayokScore,
                         mButtonBasagPalayokChoices, questionModelList, currentQuestion, score,
-                        playerStatisticModel, mImageViewBasagPalayokPicture, countUpTimer);
+                        playerStatisticModel, mImageViewBasagPalayokPicture, countUpTimer,
+                        mLinearLayoutBasagPalayokChoices, mButtonPalayok);
             }catch (SQLiteException e){
                 Log.i(TAG, "onCreate: " + e.getMessage());
             }
@@ -252,10 +257,22 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
             final int currentQuestion, final int score,
             final PlayerStatisticModel playerStatisticModel,
             final ImageView mImageViewBasagPalayokPicture,
-            final CountUpTimer countUpTimer)
+            final CountUpTimer countUpTimer,
+            final LinearLayout mLinearLayoutBasagPalayokChoices,
+            final Button mButtonPalayok)
     {
         final BasagPalayokCorrect basagPalayokCorrect = new BasagPalayokCorrect(BasagPalayokActivity.this);
-
+        //--
+        mLinearLayoutBasagPalayokChoices.setVisibility(View.INVISIBLE);
+        mButtonPalayok.setBackgroundResource(R.drawable.ic_palayok);
+        mButtonPalayok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mLinearLayoutBasagPalayokChoices.setVisibility(View.VISIBLE);
+                mButtonPalayok.setBackgroundResource(R.drawable.ic_broken_palayok);
+            }
+        });
+        //--
         if(currentQuestion != questionModelList.size()){
             final QuestionModel questionModel = questionModelList.get(currentQuestion);
             //Toast.makeText(BasagPalayokActivity.this, questionModel.getA_question(), Toast.LENGTH_SHORT).show();
@@ -277,9 +294,9 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
 
             for (int i = 0; i < mButtonBasagPalayokChoices.length; i++){
                 final int finalI = i;
-                mButtonBasagPalayokChoices[i].setTextColor(Color.WHITE);
+                mButtonBasagPalayokChoices[i].setTextColor(Color.BLACK);
                 mButtonBasagPalayokChoices[i].setText(finalChoices.get(i));
-                mButtonBasagPalayokChoices[finalI].setBackgroundResource(R.drawable.ic_palayok);
+                //mButtonBasagPalayokChoices[finalI].setBackgroundResource(R.drawable.ic_palayok);
 
                 String getA_question = questionModel.getA_question();
                 String correct_Word =
@@ -293,8 +310,8 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
                 mButtonBasagPalayokChoices[i].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mButtonBasagPalayokChoices[finalI].setTextColor(Color.BLACK);
-                        mButtonBasagPalayokChoices[finalI].setBackgroundResource(R.drawable.ic_broken_palayok);
+                        //mButtonBasagPalayokChoices[finalI].setTextColor(Color.BLACK);
+                        //mButtonBasagPalayokChoices[finalI].setBackgroundResource(R.drawable.ic_broken_palayok);
                         String correctWord;
                         String getA_question = questionModel.getA_question();
 
@@ -316,7 +333,8 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
                                             String.valueOf((score + 1)), countUpTimer);
                                     setUpBasagPalayokQuestion(mTextViewBasagPalayokQuestion, mTextViewBasagpalayokScore,
                                             mButtonBasagPalayokChoices, questionModelList, (currentQuestion + 1), (score + 1),
-                                            playerStatisticModel, mImageViewBasagPalayokPicture,countUpTimer);
+                                            playerStatisticModel, mImageViewBasagPalayokPicture,countUpTimer,
+                                            mLinearLayoutBasagPalayokChoices, mButtonPalayok);
                                 }
                             });
                             basagPalayokCorrect.dialog.show();
@@ -342,7 +360,8 @@ public class BasagPalayokActivity extends AppCompatActivityHelper {
                                         mTextViewBasagpalayokScore.setText(String.valueOf(score + 1));
                                         setUpBasagPalayokQuestion(mTextViewBasagPalayokQuestion,
                                                 mTextViewBasagpalayokScore, mButtonBasagPalayokChoices, questionModelList,
-                                                (currentQuestion + 1), score, playerStatisticModel, mImageViewBasagPalayokPicture, countUpTimer);
+                                                (currentQuestion + 1), score, playerStatisticModel, mImageViewBasagPalayokPicture, countUpTimer,
+                                                mLinearLayoutBasagPalayokChoices, mButtonPalayok);
                                     }
                                 });
                             }else{

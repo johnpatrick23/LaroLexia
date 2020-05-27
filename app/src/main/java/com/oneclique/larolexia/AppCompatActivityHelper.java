@@ -13,6 +13,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -26,6 +27,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.ImageViewTarget;
+import com.bumptech.glide.request.target.Target;
 import com.oneclique.larolexia.LaroLexiaSQLite.LaroLexiaSQLiteModel.AchievementsModel;
 import com.oneclique.larolexia.LaroLexiaSQLite.LaroLexiaSQLiteModel.QuestionModel;
 import com.oneclique.larolexia.LaroLexiaSQLite.LaroLexiaSQLiteModel.UsersModel;
@@ -34,6 +41,8 @@ import com.oneclique.larolexia.model.PlayerStatisticModel;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
+
+import javax.sql.DataSource;
 
 public class AppCompatActivityHelper extends AppCompatActivity implements Variables, RequestVariables  {
     protected static final int SPLASH_DISPLAY_LENGTH = 2000;
@@ -313,6 +322,7 @@ public class AppCompatActivityHelper extends AppCompatActivity implements Variab
         public Button mButtonCorrectNext;
         public TextView mTextViewCorrectionStatus;
         public Dialog dialog;
+        public ImageView mImageViewTumbangPreso;
 
         public LuksongTinikCorrect(Context context){
             dialog = new Dialog(context);
@@ -322,7 +332,24 @@ public class AppCompatActivityHelper extends AppCompatActivity implements Variab
             mTextViewCorrectWord = dialog.findViewById(R.id.mTextViewCorrectWord);
             mButtonCorrectNext = dialog.findViewById(R.id.mButtonCorrectNext);
             mTextViewCorrectionStatus = dialog.findViewById(R.id.mTextViewCorrectionStatus);
+            mImageViewTumbangPreso = dialog.findViewById(R.id.mImageViewTumbangPreso);
+            Glide.with(dialog.getContext())
+                    .load(R.raw.tumbang_preso).listener(
+                    new RequestListener<Integer, GlideDrawable>() {
+                        @Override
+                        public boolean onException(Exception e, Integer integer, Target<GlideDrawable> target, boolean b) {
+                            return false;
+                        }
 
+                        @Override
+                        public boolean onResourceReady(GlideDrawable glideDrawable, Integer integer, Target<GlideDrawable> target, boolean b, boolean b1) {
+                            if (glideDrawable instanceof GifDrawable) {
+                                ((GifDrawable)glideDrawable).setLoopCount(1);
+                            }
+                            return false;
+                        }
+                    }
+            ).into(mImageViewTumbangPreso);
             mButtonCorrectNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

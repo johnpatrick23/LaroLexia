@@ -7,7 +7,20 @@
     android:background="@drawable/ic_bg"
     tools:context=".BasagPalayokActivity">
 
+
+    <Button
+        android:id="@+id/mButtonPalayok"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_palayok"
+        app:layout_constraintBottom_toTopOf="@+id/mLinearLayoutBasagPalayokChoices"
+        app:layout_constraintEnd_toEndOf="@+id/mLinearLayoutBasagPalayokChoices"
+        app:layout_constraintStart_toStartOf="@+id/mLinearLayoutBasagPalayokChoices"
+        app:layout_constraintTop_toBottomOf="@+id/mLinearLayoutBasagPalayokChoices" />
+
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/bg_stars"
@@ -17,7 +30,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/mLinearLayoutBasagPalayokChoices">
 
         <ImageView
             android:id="@+id/mImageViewBasagPalayokPicture"
@@ -41,12 +54,13 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
+        android:id="@+id/mLinearLayoutBasagPalayokChoices"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:gravity="center"
         android:orientation="horizontal"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mTextViewBasagPalayokInstruction">
@@ -58,12 +72,12 @@
             android:layout_height="@dimen/button_height_xxl"
             android:layout_margin="@dimen/padding_2"
             android:layout_weight="1"
-            android:background="@drawable/ic_palayok"
+            android:background="@drawable/bg_stars"
             android:fontFamily="@font/verdana_bold"
             android:scaleType="fitCenter"
             android:text="M"
             android:textAlignment="center"
-            android:textColor="#ffffff"
+            android:textColor="#000"
             android:textSize="@dimen/font_xxl"
             android:textStyle="bold" />
 
@@ -74,12 +88,12 @@
             android:layout_height="@dimen/button_height_xxl"
             android:layout_margin="@dimen/padding_2"
             android:layout_weight="1"
-            android:background="@drawable/ic_palayok"
+            android:background="@drawable/bg_stars"
             android:fontFamily="@font/verdana_bold"
             android:scaleType="fitCenter"
             android:text="A"
             android:textAlignment="center"
-            android:textColor="#ffffff"
+            android:textColor="#000"
             android:textSize="@dimen/font_xxl"
             android:textStyle="bold" />
 
@@ -90,12 +104,12 @@
             android:layout_height="@dimen/button_height_xxl"
             android:layout_margin="@dimen/padding_2"
             android:layout_weight="1"
-            android:background="@drawable/ic_palayok"
+            android:background="@drawable/bg_stars"
             android:fontFamily="@font/verdana_bold"
             android:scaleType="fitCenter"
             android:text="R"
             android:textAlignment="center"
-            android:textColor="#ffffff"
+            android:textColor="#000"
             android:textSize="@dimen/font_xxl"
             android:textStyle="bold" />
 
@@ -106,12 +120,12 @@
             android:layout_height="@dimen/button_height_xxl"
             android:layout_margin="@dimen/padding_2"
             android:layout_weight="1"
-            android:background="@drawable/ic_palayok"
+            android:background="@drawable/bg_stars"
             android:fontFamily="@font/verdana_bold"
             android:scaleType="fitCenter"
             android:text="Y"
             android:textAlignment="center"
-            android:textColor="#ffffff"
+            android:textColor="#000"
             android:textSize="@dimen/font_xxl"
             android:textStyle="bold" />
 
@@ -122,12 +136,12 @@
             android:layout_height="@dimen/button_height_xxl"
             android:layout_margin="@dimen/padding_2"
             android:layout_weight="1"
-            android:background="@drawable/ic_palayok"
+            android:background="@drawable/bg_stars"
             android:fontFamily="@font/verdana_bold"
             android:scaleType="fitCenter"
             android:text="Y"
             android:textAlignment="center"
-            android:textColor="#ffffff"
+            android:textColor="#000"
             android:textSize="@dimen/font_xxl"
             android:textStyle="bold" />
     </LinearLayout>

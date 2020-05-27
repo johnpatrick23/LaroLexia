@@ -30,6 +30,16 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/mImageViewTumbangPreso"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/mImageViewCorrectImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/mImageViewCorrectImage"
+            app:layout_constraintTop_toTopOf="@+id/mImageViewCorrectImage" />
+
+
+        <ImageView
             android:id="@+id/mImageViewCorrectImage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

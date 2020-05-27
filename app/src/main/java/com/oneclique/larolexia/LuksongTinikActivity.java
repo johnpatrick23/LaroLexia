@@ -5,6 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -14,9 +17,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
 import com.oneclique.larolexia.LaroLexiaSQLite.LaroLexiaSQLite;
 import com.oneclique.larolexia.LaroLexiaSQLite.LaroLexiaSQLiteModel.AchievementsModel;
 import com.oneclique.larolexia.LaroLexiaSQLite.LaroLexiaSQLiteModel.LettersModel;
@@ -34,6 +40,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+
+import pl.droidsonroids.gif.GifAnimationMetaData;
+import pl.droidsonroids.gif.GifDrawable;
+import pl.droidsonroids.gif.GifImageButton;
+import pl.droidsonroids.gif.GifImageView;
 
 public class LuksongTinikActivity extends AppCompatActivityHelper {
 
@@ -66,6 +77,7 @@ public class LuksongTinikActivity extends AppCompatActivityHelper {
     private CountUpTimer countUpTimer;
     private String summativeTest = "";
     private String additionalQuery = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -227,7 +239,9 @@ public class LuksongTinikActivity extends AppCompatActivityHelper {
                         if(mImageViewObject.getContentDescription().toString().equals(answer)){
                             //TODO CORRECT
                             Log.i(TAG, "onClick: Tama");
+
                             luksongTinikCorrect.mTextViewCorrectionStatus.setText("Napakahusay!");
+                            luksongTinikCorrect.mImageViewTumbangPreso.setVisibility(View.VISIBLE);
                             luksongTinikCorrect.dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                                 @Override
                                 public void onCancel(DialogInterface dialog) {
@@ -243,6 +257,7 @@ public class LuksongTinikActivity extends AppCompatActivityHelper {
                             //TODO WRONG
                             Log.i(TAG, "onClick: Mali!");
                             luksongTinikCorrect.mTextViewCorrectionStatus.setText("Subukan muli.");
+                            luksongTinikCorrect.mImageViewTumbangPreso.setVisibility(View.INVISIBLE);
                             if((currentQuestion + 1) != questionModelList.size()){
                                 luksongTinikCorrect.dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                                     @Override
